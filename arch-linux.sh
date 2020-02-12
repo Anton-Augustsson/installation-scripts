@@ -43,15 +43,6 @@ echo '
 KEYMAP=sv-latin1
 ' >>/etc/vconsole.conf
 
-#####Not tested
-export LANGUAGE=en_US.UTF-8
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
-locale-gen en_US.UTF-8
-dpkg-reconfigure locales
-#https://www.thomas-krenn.com/en/wiki/Perl_warning_Setting_locale_failed_in_Debian
-#####Not tested
-
 ln -sf /usr/share/zoneinfo/Europe/Stockholm /etc/localtime
 hwclock --systohc
 
@@ -115,8 +106,9 @@ sudo -u anton yay -S brother-mfc-l2700dw
 
 ## configuration files
 #scp anton@192.168.1.210:/plex/other/mountain1.jpg /home/anton/Pictures/wallpaper/wallpaper.jpg ~
-#wget -q https://raw.githubusercontent.com/anton-1999/configuration-files/master/wallpaper.jpg -O ~/Pictures/wallpaper/wallpaper.jpg
-#betterlockscreen -u /home/anton/Pictures/wallpaper/wallpaper.jpg
+wget -q https://github.com/anton-1999/installation-scripts/raw/master/united/wallpaper.jpg -O ~/Pictures/wallpaper/wallpaper.jpg
+betterlockscreen -u /home/anton/Pictures/wallpaper/wallpaper.jpg
+
 #wget -q https://raw.githubusercontent.com/anton-1999/configuration-files/master/config/.zshrc -O ~/.zshrc
 #wget -q https://raw.githubusercontent.com/anton-1999/configuration-files/master/config/.emacs -O ~/.emacs
 #wget -q https://raw.githubusercontent.com/anton-1999/configuration-files/master/config/.Xdefaults -O ~/.Xdefaults
@@ -125,6 +117,7 @@ sudo -u anton yay -S brother-mfc-l2700dw
 #wget -q https://raw.githubusercontent.com/anton-1999/configuration-files/master/config/.config/polybar/launch.sh -O ~/.config/polybar/launch.sh
 #wget -q https://raw.githubusercontent.com/anton-1999/configuration-files/master/config/.config/ranger/rc.conf -O ~/.config/ranger/rc.conf
 #wget -q https://raw.githubusercontent.com/anton-1999/configuration-files/master/config/.config/zathura/zathurarc -O ~/.config/zathura/zathurarc
+
 cd /home/anton
 git clone https://github.com/anton-1999/dotfiles.git
 cd dotfiles
@@ -135,12 +128,12 @@ pacman -S ispell ghc ghc-static cabal-install texlive-most
 echo "export EDITOR=/usr/bin/emacs" >> ~/.zshrc
 
 ### Haskell
-sudo -u anton mkdir haskell
-cd  haskell
-sudo -u anton cabal update
-sudo -u anton cabal user-config update
-sudo -u anton cabal init 
-sudo -u anton cabal configure --disable-library-vanilla --enable-shared --enable-executable-dynamic --ghc-options=-dynamic
+#sudo -u anton mkdir haskell
+#cd  haskell
+#sudo -u anton cabal update
+#sudo -u anton cabal user-config update
+#sudo -u anton cabal init 
+#sudo -u anton cabal configure --disable-library-vanilla --enable-shared --enable-executable-dynamic --ghc-options=-dynamic
 
 
 ## desktop language
