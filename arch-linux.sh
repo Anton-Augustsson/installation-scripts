@@ -39,9 +39,12 @@ locale-gen
 echo '
 LANG=en_GB.UTF-8
 ' >> /etc/locale.conf
+source /etc/locale.conf
+
 echo '
 KEYMAP=sv-latin1
 ' >>/etc/vconsole.conf
+source /etc/vconsole.conf
 
 ln -sf /usr/share/zoneinfo/Europe/Stockholm /etc/localtime
 hwclock --systohc
@@ -96,7 +99,7 @@ chmod 777 yay
 cd yay
 sudo -u anton makepkg -si
 
-sudo -u anton yay -S siji termsyn-font polybar
+sudo -u anton yay -S siji termsyn-font polybar betterlockscreen
 
 ## printer
 pacman -S --noconfirm cups cups-pdf gtk3-print-backends system-config-printer
@@ -107,7 +110,7 @@ sudo -u anton yay -S brother-mfc-l2700dw
 ## configuration files
 #scp anton@192.168.1.210:/plex/other/mountain1.jpg /home/anton/Pictures/wallpaper/wallpaper.jpg ~
 wget -q https://github.com/anton-1999/installation-scripts/raw/master/united/wallpaper.jpg -O ~/Pictures/wallpaper/wallpaper.jpg
-betterlockscreen -u /home/anton/Pictures/wallpaper/wallpaper.jpg
+#betterlockscreen -u /home/anton/Pictures/wallpaper/wallpaper.jpg
 
 #wget -q https://raw.githubusercontent.com/anton-1999/configuration-files/master/config/.zshrc -O ~/.zshrc
 #wget -q https://raw.githubusercontent.com/anton-1999/configuration-files/master/config/.emacs -O ~/.emacs
@@ -118,14 +121,14 @@ betterlockscreen -u /home/anton/Pictures/wallpaper/wallpaper.jpg
 #wget -q https://raw.githubusercontent.com/anton-1999/configuration-files/master/config/.config/ranger/rc.conf -O ~/.config/ranger/rc.conf
 #wget -q https://raw.githubusercontent.com/anton-1999/configuration-files/master/config/.config/zathura/zathurarc -O ~/.config/zathura/zathurarc
 
-cd /home/anton
-git clone https://github.com/anton-1999/dotfiles.git
-cd dotfiles
-sudo -u anton stow i3 polybar sxhkd urxvt emacs bash zsh ranger zathura 
+#cd /home/anton
+#git clone https://github.com/anton-1999/dotfiles.git
+#cd dotfiles
+#sudo -u anton stow i3 polybar sxhkd urxvt emacs bash zsh ranger zathura 
 
 ## Programing languge
-pacman -S ispell ghc ghc-static cabal-install texlive-most
-echo "export EDITOR=/usr/bin/emacs" >> ~/.zshrc
+#pacman -S ispell ghc ghc-static cabal-install texlive-most
+#echo "export EDITOR=/usr/bin/emacs" >> ~/.zshrc
 
 ### Haskell
 #sudo -u anton mkdir haskell
