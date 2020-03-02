@@ -80,10 +80,6 @@ grub-mkconfig -o /boot/grub/grub.cfg
 ## Directory anton home
 cd /home/anton
 sudo -u anton mkdir Downloads Documents Pictures Pictures/wallpaper Pictures/Screenshots Programs School Dev Woodworking Electronics Openscad KiCad
-#Openscad (library)
-#KiCad (library)
-#Arduino (library)
-
 
 ## zsh
 pacman -S --noconfirm zsh zsh-completions zsh-syntax-highlighting
@@ -99,7 +95,7 @@ systemctl enable lightdm
 
 
 ## Applications
-pacman -S --noconfirm rxvt-unicode firefox ranger nautilus arduino kicad openscad zathura zathura-pdf-mupdf zathura-djvu 
+pacman -S --noconfirm rxvt-unicode firefox ranger nautilus arduino kicad openscad zathura zathura-pdf-mupdf zathura-djvu dia cura deluge 
 
 ## yay
 pacman -S --noconfirm --needed base-devel git
@@ -118,14 +114,15 @@ systemctl start org.cups.cupsd.service
 sudo -u anton yay -S brother-mfc-l2700dw
 
 ## configuration files
-wget -q https://github.com/anton-1999/installation-scripts/raw/master/united/wallpaper.jpg -O /home/anton/Pictures/wallpaper/wallpaper.jpg
-#betterlockscreen -u /home/anton/Pictures/wallpaper/wallpaper.jpg
+wget -q https://github.com/Anton-Augustsson/installation-scripts/raw/master/united/wallpaper.jpg -O /home/anton/Pictures/wallpaper/wallpaper.jpg
+betterlockscreen -u /home/anton/Pictures/wallpaper/wallpaper.jpg
 
+### Stow
 cd /home/anton
 git clone https://github.com/anton-1999/dotfiles.git
-cd dotfiles
-rm /home/anton/.bashrc
-sudo -u anton stow urxvt emacs zsh ranger zathura 
+#cd dotfiles
+#rm /home/anton/.bashrc
+#sudo -u anton stow urxvt emacs zsh ranger zathura 
 # desktop enviroment breakes possibly because of:  i3 polybar sxhkd bash
 
 ## Programing languge
