@@ -48,8 +48,8 @@ source /etc/vconsole.conf
 
 #LANGUAGE=en_GB:en #untested
 #export LC_ALL="en_GB.UTF-8"
-export LC_MESSAGES="en_GB.UTF-8"
-export LC_COLLATE="en_GB.UTF-8"
+#export LC_MESSAGES="en_GB.UTF-8"
+#export LC_COLLATE="en_GB.UTF-8"
 
 ln -sf /usr/share/zoneinfo/Europe/Stockholm /etc/localtime
 hwclock --systohc
@@ -82,55 +82,54 @@ cd /home/anton
 sudo -u anton mkdir Downloads Documents Pictures Pictures/wallpaper Pictures/Screenshots Programs School Dev Woodworking Electronics Openscad KiCad
 
 ## zsh
-pacman -S --noconfirm zsh zsh-completions zsh-syntax-highlighting
-chsh -s /bin/zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+#pacman -S --noconfirm zsh zsh-completions zsh-syntax-highlighting
+#chsh -s /bin/zsh
+#sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+#git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+#git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
 
 # Desktop environment
-pacman -S --noconfirm dialog wpa_supplicant openssl xorg xorg-xinit xorg-server lightdm lightdm-gtk-greeter i3-gaps i3status dmenu feh alsa-utils powerline w3m scrot sxhkd brightnessctl net-tools stow
-# xbindkeys xorg-xbacklight imagemagick feh xorg-xrandr xorg-xdpyinfo w3mimgdisplay imagemagick
-systemctl enable lightdm
+#pacman -S --noconfirm dialog wpa_supplicant openssl xorg xorg-xinit xorg-server lightdm lightdm-gtk-greeter i3-gaps i3status dmenu feh alsa-utils powerline w3m scrot sxhkd brightnessctl net-tools stow
+#systemctl enable lightdm
 
 
 ## Applications
-pacman -S --noconfirm rxvt-unicode firefox ranger nautilus arduino kicad openscad zathura zathura-pdf-mupdf zathura-djvu dia cura deluge 
+#pacman -S --noconfirm rxvt-unicode firefox ranger nautilus arduino kicad openscad zathura zathura-pdf-mupdf zathura-djvu dia cura deluge 
 
 ## yay
-pacman -S --noconfirm --needed base-devel git
-cd /home/anton/Programs
-sudo -u anton git clone https://aur.archlinux.org/yay.git
-chmod 777 yay
-cd yay
-sudo -u anton makepkg -si
+#pacman -S --noconfirm --needed base-devel git
+#cd /home/anton/Programs
+#sudo -u anton git clone https://aur.archlinux.org/yay.git
+#chmod 777 yay
+#cd yay
+#sudo -u anton makepkg -si
 
-sudo -u anton yay -S siji termsyn-font polybar betterlockscreen
+#sudo -u anton yay -S siji termsyn-font polybar betterlockscreen
 
 ## printer
-pacman -S --noconfirm cups cups-pdf gtk3-print-backends system-config-printer
-systemctl enable org.cups.cupsd.service
-systemctl start org.cups.cupsd.service
-sudo -u anton yay -S brother-mfc-l2700dw
+#pacman -S --noconfirm cups cups-pdf gtk3-print-backends system-config-printer
+#systemctl enable org.cups.cupsd.service
+#systemctl start org.cups.cupsd.service
+#sudo -u anton yay -S brother-mfc-l2700dw
 
 ## configuration files
-wget -q https://github.com/Anton-Augustsson/installation-scripts/raw/master/united/wallpaper.jpg -O /home/anton/Pictures/wallpaper/wallpaper.jpg
-betterlockscreen -u /home/anton/Pictures/wallpaper/wallpaper.jpg
+#wget -q https://github.com/Anton-Augustsson/installation-scripts/raw/master/united/wallpaper.jpg -O /home/anton/Pictures/wallpaper/wallpaper.jpg
+#betterlockscreen -u /home/anton/Pictures/wallpaper/wallpaper.jpg
 
 ### Stow
-cd /home/anton
-git clone https://github.com/anton-1999/dotfiles.git
+#cd /home/anton
+#git clone https://github.com/anton-1999/dotfiles.git
 #cd dotfiles
 #rm /home/anton/.bashrc
 #sudo -u anton stow urxvt emacs zsh ranger zathura 
 # desktop enviroment breakes possibly because of:  i3 polybar sxhkd bash
 
 ## Programing languge
-pacman -S ispell texlive-most
-echo "export EDITOR=/usr/bin/emacs" >> ~/.zshrc
+#pacman -S ispell texlive-most
+#echo "export EDITOR=/usr/bin/emacs" >> ~/.zshrc
 
 ## desktop language
-localectl set-keymap se
+#localectl set-keymap se
 #localectl set-x11-keymap se  #no command found 
 
 # End
