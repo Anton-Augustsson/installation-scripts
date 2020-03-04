@@ -6,6 +6,7 @@ EDITOR=emacs visudo
 DRIVE=/dev/xvda
 USER=anton
 HOSTNAME=arch-thinkpad
+DOTFILES=https://github.com/Anton-Augustsson/dotfiles.git
 
 ## Host configuration
 echo $HOSTNAME >> /etc/hostname
@@ -78,50 +79,54 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 
 ## Directory anton home
-cd /home/anton
-sudo -u anton mkdir Downloads Documents Pictures Pictures/wallpaper Pictures/Screenshots Programs School Dev Woodworking Electronics Openscad KiCad
+cd /home/$USER
+sudo -u $USER mkdir Downloads Documents Pictures Pictures/wallpaper Pictures/Screenshots Programs School Dev Woodworking Electronics Openscad KiCad
+
+## Baic tool installation
+pacman -S net-tools git
 
 ## zsh
-#pacman -S --noconfirm zsh zsh-completions zsh-syntax-highlighting
-#chsh -s /bin/zsh
-#sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-#git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-#git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+pacman -S --noconfirm zsh zsh-completions zsh-syntax-highlighting
+sudo -u $USER chsh -s /bin/zsh
+sudo -u sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
 
 # Desktop environment
-#pacman -S --noconfirm dialog wpa_supplicant openssl xorg xorg-xinit xorg-server lightdm lightdm-gtk-greeter i3-gaps i3status dmenu feh alsa-utils powerline w3m scrot sxhkd brightnessctl net-tools stow
-#systemctl enable lightdm
+pacman -S --noconfirm dialog wpa_supplicant xorg xorg-xinit xorg-server lightdm lightdm-gtk-greeter i3-gaps i3status dmenu feh alsa-utils powerline w3m scrot sxhkd brightnessctl stow
+systemctl enable lightdm
 
 
 ## Applications
-#pacman -S --noconfirm rxvt-unicode firefox ranger nautilus arduino kicad openscad zathura zathura-pdf-mupdf zathura-djvu dia cura deluge 
+pacman -S --noconfirm rxvt-unicode firefox ranger nautilus arduino kicad openscad zathura zathura-pdf-mupdf zathura-djvu dia cura deluge 
 
 ## yay
-#pacman -S --noconfirm --needed base-devel git
-#cd /home/anton/Programs
-#sudo -u anton git clone https://aur.archlinux.org/yay.git
-#chmod 777 yay
-#cd yay
-#sudo -u anton makepkg -si
+cd /home/$USER/Programs
+sudo -u anton git clone https://aur.archlinux.org/yay.git
+chmod 777 yay
+cd yay
+sudo -u $USER makepkg -si
+cd
 
-#sudo -u anton yay -S siji termsyn-font polybar betterlockscreen
+### yay applicatinos
+sudo -u $USER yay -S --noconfirm siji termsyn-font polybar betterlockscreen
 
 ## printer
-#pacman -S --noconfirm cups cups-pdf gtk3-print-backends system-config-printer
-#systemctl enable org.cups.cupsd.service
-#systemctl start org.cups.cupsd.service
-#sudo -u anton yay -S brother-mfc-l2700dw
+pacman -S --noconfirm cups cups-pdf gtk3-print-backends system-config-printer
+systemctl enable org.cups.cupsd.service
+systemctl start org.cups.cupsd.service
+sudo -u $$USER yay -S --noconfirm brother-mfc-l2700dw
 
 ## configuration files
-#wget -q https://github.com/Anton-Augustsson/installation-scripts/raw/master/united/wallpaper.jpg -O /home/anton/Pictures/wallpaper/wallpaper.jpg
-#betterlockscreen -u /home/anton/Pictures/wallpaper/wallpaper.jpg
+wget -q https://github.com/Anton-Augustsson/installation-scripts/raw/master/united/wallpaper.jpg -O /home/anton/Pictures/wallpaper/wallpaper.jpg
+#betterlockscreen -u /home/anton/Pictures/wallpaper/wallpaper.jpg  # Dosent work it probably desktop enviroment is needed
 
 ### Stow
-#cd /home/anton
-#git clone https://github.com/anton-1999/dotfiles.git
+#cd /home/$USER
+#git clone $DOTFILES
 #cd dotfiles
-#rm /home/anton/.bashrc
-#sudo -u anton stow urxvt emacs zsh ranger zathura 
+#rm /home/$sudo -u $USER/.bashrc
+#sudo -u $USER stow urxvt emacs zsh ranger zathura 
 # desktop enviroment breakes possibly because of:  i3 polybar sxhkd bash
 
 ## Programing languge
@@ -129,8 +134,8 @@ sudo -u anton mkdir Downloads Documents Pictures Pictures/wallpaper Pictures/Scr
 #echo "export EDITOR=/usr/bin/emacs" >> ~/.zshrc
 
 ## desktop language
-#localectl set-keymap se
-#localectl set-x11-keymap se  #no command found 
+#sudo -u $USER localectl set-keymap se
+#sudo -u $USER localectl set-x11-keymap se  #no command found deed after desktop evirometn
 
 # End
 echo '
