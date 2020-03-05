@@ -2,7 +2,6 @@ echo '
 arch linux desktop installation script 
 '
 
-DRIVE=/dev/xvda
 USER=anton
 HOSTNAME=arch-thinkpad
 DOTFILES=https://github.com/Anton-Augustsson/dotfiles.git
