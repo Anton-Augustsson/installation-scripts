@@ -1,8 +1,7 @@
 echo ' 
-arch-linux-installation script 
+arch linux desktop installation script 
 '
-# Base install
-EDITOR=emacs visudo 
+
 DRIVE=/dev/xvda
 USER=anton
 HOSTNAME=arch-thinkpad
@@ -18,13 +17,12 @@ pacman -S --noconfirm rxvt-unicode powerline ranger zathura zathura-pdf-mupdf za
 ## Applications
 pacman -S --noconfirm firefox nautilus arduino kicad openscad dia cura deluge  # unexpected error? somthing with python, urxvt fails.
 
-## yay
+## yay failed 
 cd /home/$USER/Programs
-sudo -u anton git clone https://aur.archlinux.org/yay.git
+git clone https://aur.archlinux.org/yay.git
 chmod 777 yay
 cd yay
 sudo -u $USER makepkg -si
-cd
 
 ### yay applicatinos
 sudo -u $USER yay -S --noconfirm siji termsyn-font polybar betterlockscreen
