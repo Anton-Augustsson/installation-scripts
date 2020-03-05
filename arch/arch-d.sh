@@ -6,6 +6,11 @@ USER=anton
 HOSTNAME=arch-thinkpad
 DOTFILES=https://github.com/Anton-Augustsson/dotfiles.git
 
+# Pre installtion
+#git,wget
+pacman -Syu --noconfirm
+#pacman -S --noconfirm python-mako usbmuxd
+
 # Desktop environment
 pacman -S --noconfirm dialog wpa_supplicant xorg xorg-xinit xorg-server lightdm lightdm-gtk-greeter i3-gaps i3status dmenu feh alsa-utils w3m scrot sxhkd brightnessctl stow
 systemctl enable lightdm
@@ -16,14 +21,14 @@ pacman -S --noconfirm rxvt-unicode powerline ranger zathura zathura-pdf-mupdf za
 ## Applications
 pacman -S --noconfirm firefox nautilus arduino kicad openscad dia cura deluge  # unexpected error? somthing with python, urxvt fails.
 
-## yay failed 
+## yay 
 cd /home/$USER/Programs
 git clone https://aur.archlinux.org/yay.git
 chmod 777 yay
 cd yay
-sudo -u $USER makepkg -si
+sudo -u $USER makepkg -si  
 
-### yay applicatinos
+### yay applicatinos  fails then crashes i3
 sudo -u $USER yay -S --noconfirm siji termsyn-font polybar betterlockscreen
 
 ## printer
@@ -52,3 +57,9 @@ wget -q https://github.com/Anton-Augustsson/installation-scripts/raw/master/unit
 #sudo -u $USER localectl set-keymap se
 #sudo -u $USER localectl set-x11-keymap se  #no command found deed after desktop evirometn
 
+## errors
+#python-mako
+#usbmuxd
+#pkdbuild
+#sudo yay not found need user
+#unable to open sedplay

@@ -55,6 +55,7 @@ source /etc/vconsole.conf
 ln -sf /usr/share/zoneinfo/Europe/Stockholm /etc/localtime
 hwclock --systohc
 
+pacman -Syu
 
 ## Mirroring list
 pacman -S --noconfirm pacman-contrib
