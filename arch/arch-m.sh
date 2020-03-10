@@ -55,7 +55,7 @@ source /etc/vconsole.conf
 ln -sf /usr/share/zoneinfo/Europe/Stockholm /etc/localtime
 hwclock --systohc
 
-pacman -Syu
+pacman -Syu --noconfirm
 
 ## Mirroring list
 pacman -S --noconfirm pacman-contrib
@@ -89,7 +89,7 @@ pacman -S net-tools git
 ## zsh
 pacman -S --noconfirm zsh zsh-completions zsh-syntax-highlighting
 sudo -u $USER chsh -s /bin/zsh
-sudo -u $USER sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sudo -u $USER sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" #moves inside zshell need to exit to continu
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
 

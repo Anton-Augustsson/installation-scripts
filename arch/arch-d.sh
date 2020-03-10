@@ -7,7 +7,6 @@ HOSTNAME=arch-thinkpad
 DOTFILES=https://github.com/Anton-Augustsson/dotfiles.git
 
 # Pre installtion
-#git,wget
 pacman -Syu --noconfirm
 #pacman -S --noconfirm python-mako usbmuxd
 
@@ -42,24 +41,28 @@ wget -q https://github.com/Anton-Augustsson/installation-scripts/raw/master/unit
 #betterlockscreen -u /home/anton/Pictures/wallpaper/wallpaper.jpg  # Dosent work it probably desktop enviroment is needed
 
 ### Stow
-#cd /home/$USER
-#git clone $DOTFILES
-#cd dotfiles
+cd /home/$USER
+git clone $DOTFILES
+cd dotfiles
 #rm /home/$sudo -u $USER/.bashrc
-#sudo -u $USER stow urxvt emacs zsh ranger zathura 
-# desktop enviroment breakes possibly because of:  i3 polybar sxhkd bash
+#rm  /home/$USER/.bashrc
+rm  /home/$USER/.zshrc
+sudo -u $USER stow urxvt emacs zsh ranger zathura 
 
-## Programing languge
-#pacman -S ispell texlive-most
-#echo "export EDITOR=/usr/bin/emacs" >> ~/.zshrc
+## Programing 
+pacman -S ispell texlive-most
+echo "export EDITOR=/usr/bin/emacs" >> ~/.zshrc
 
 ## desktop language
-#sudo -u $USER localectl set-keymap se
-#sudo -u $USER localectl set-x11-keymap se  #no command found deed after desktop evirometn
+sudo -u $USER localectl set-keymap se
+sudo -u $USER localectl set-x11-keymap se  #no command found deed after desktop evirometn
 
 ## errors
+#git,wget
 #python-mako
 #usbmuxd
 #pkdbuild
 #sudo yay not found need user
 #unable to open sedplay
+# desktop enviroment breakes possibly because of:  i3 polybar sxhkd bash
+# sudo -u $USER localectl set-x11-keymap se  #no command found deed after desktop evirometn
