@@ -81,7 +81,7 @@ grub-mkconfig -o /boot/grub/grub.cfg
 
 ## Directory anton home
 cd /home/$USER
-sudo -u $USER mkdir Downloads Documents Pictures Pictures/wallpaper Pictures/Screenshots Programs School Dev Woodworking Electronics Openscad KiCad
+sudo -u $USER mkdir Downloads doc Pictures Pictures/wallpaper Pictures/Screenshots Programs School dev dev/Woodworking dev/Electronics lib/Openscad lib/KiCad lib/Arduino
 
 ## Baic tool installation
 pacman -S net-tools git
