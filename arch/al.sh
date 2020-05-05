@@ -1,23 +1,15 @@
 # Gloabal variables
+EDITOR=emacs visudo 
 DRIVE=/dev/xvda
+USER=anton
+HOSTNAME=arch-thinkpad
+DOTFILES=https://github.com/Anton-Augustsson/dotfiles.git
 
 welcome()
 {
     echo ' 
     arch-linux-installation script 
     '
-}
-
-user()
-{
-    #echo 'foobar ALL=(ALL:ALL) ALL' | sudo EDITOR='tee -a' visudo
-    EDITOR=emacs visudo
-
-    useradd -m -G wheel -s /bin/bash anton
-    echo '
-    write your password user
-    '
-    passwd anton
 }
 
 host_conf()
@@ -30,7 +22,7 @@ host_conf()
     '  >> /etc/hosts
 }
 
-password()
+root_password()
 {
     echo '
     write your password root
@@ -52,15 +44,12 @@ swe_conf()
     echo '
     LANG=en_GB.UTF-8
     ' >> /etc/locale.conf
+    source /etc/locale.conf
+
     echo '
     KEYMAP=sv-latin1
     ' >>/etc/vconsole.conf
-
-    ln -sf /usr/share/zoneinfo/Europe/Stockholm /etc/localtime
-    hwclock --systohc
-    
-    localectl set-keymap se
-    localectl set-x11-keymap se
+    source /etc/vconsole.conf
 
 }
 
@@ -91,6 +80,19 @@ grub()
     grub-mkconfig -o /boot/grub/grub.cfg
 }
 
+
+user()
+{
+    #echo 'foobar ALL=(ALL:ALL) ALL' | sudo EDITOR='tee -a' visudo
+    EDITOR=emacs visudo
+
+    useradd -m -G wheel -s /bin/bash anton
+    echo '
+    write your password user
+    '
+    passwd anton
+}
+
 directory()
 {
     cd /home/anton
@@ -101,7 +103,11 @@ directory()
 zsh()
 {
     pacman -S --noconfirm zsh zsh-completions zsh-syntax-highlighting
-    chsh -s /bin/zsh
+    sudo -u $USER chsh -s /bin/zsh
+    sudo -u $USER sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" #moves inside zshell need to exit to continu
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+
 }
 
 i3()
@@ -129,3 +135,17 @@ aur_application()
 {
     sudo -u anton yay -S polybar siji termsyn-font
 }
+
+
+# Acctual install
+
+welcome
+host_conf
+root_password
+swe_conf
+mirror_list
+ssh
+grub
+user
+directory
+zsh
