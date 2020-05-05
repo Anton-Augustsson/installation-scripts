@@ -102,7 +102,7 @@ directory()
 
 zsh()
 {
-    pacman -S --noconfirm zsh zsh-completions zsh-syntax-highlighting
+    pacman -S --noconfirm zsh zsh-completions zsh-syntax-highlighting git
     sudo -u $USER chsh -s /bin/zsh
     sudo -u $USER sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" #moves inside zshell need to exit to continu
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
