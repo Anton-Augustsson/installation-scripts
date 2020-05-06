@@ -1,5 +1,5 @@
 # Gloabal variables
-EDITOR=emacs visudo 
+EDITOR=emacs 
 DRIVE=/dev/xvda
 USER=anton
 HOSTNAME=arch-thinkpad
@@ -136,6 +136,16 @@ aur_application()
     sudo -u anton yay -S polybar siji termsyn-font
 }
 
+end()
+{
+    echo '
+    # Finnish
+    exit
+    umount -R /mnt
+    reboot
+    '
+}
+
 
 # Acctual install
 
@@ -149,3 +159,4 @@ grub
 user
 directory
 zsh
+end
