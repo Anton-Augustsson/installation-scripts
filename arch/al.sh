@@ -5,12 +5,14 @@ USER=anton
 HOSTNAME=arch-thinkpad
 DOTFILES=https://github.com/Anton-Augustsson/dotfiles.git
 
+
 welcome()
 {
     echo ' 
     arch-linux-installation script 
     '
 }
+
 
 host_conf()
 {
@@ -22,14 +24,15 @@ host_conf()
     '  >> /etc/hosts
 }
 
+
 root_password()
 {
     echo '
     write your password root
     '
     passwd
-
 }
+
 
 swe_conf()
 {
@@ -53,6 +56,7 @@ swe_conf()
 
 }
 
+
 mirror_list()
 {
     pacman -S --noconfirm pacman-contrib
@@ -60,11 +64,13 @@ mirror_list()
     rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
 }
 
+
 network()
 {
     pacman -S --noconfirm jre-openjdk networkmanager
     systemctl enable NetworkManager
 }
+
 
 ssh()
 {
@@ -73,12 +79,14 @@ ssh()
     systemctl start sshd
 }
 
+
 grub()
 {
     pacman -S --noconfirm grub
     grub-install $DRIVE 
     grub-mkconfig -o /boot/grub/grub.cfg
 }
+
 
 
 user()
@@ -93,12 +101,14 @@ user()
     passwd anton
 }
 
+
 directory()
 {
     cd /home/anton
     sudo -u anton mkdir Programs Documents Documents/git-projects Pictures Pictures/wallpaper Downloads
     chmod 777 Programs Documents Documents/git-projects Pictures Pictures/wallpaper Downloads
 }
+
 
 zsh()
 {
@@ -107,19 +117,8 @@ zsh()
     sudo -u $USER sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" #moves inside zshell need to exit to continu
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
     git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
-
 }
 
-i3()
-{
-    pacman -S --noconfirm dialog wpa_supplicant openssl xorg xorg-xinit xorg-server lightdm lightdm-gtk-greeter i3-gaps i3status dmenu feh alsa-utils
-    systemctl enable lightdm
-}
-
-application()
-{
-    pacman -S --noconfirm rxvt-unicode firefox ranger nautilus arduino kicad openscad
-}
 
 yay()
 {
@@ -131,10 +130,56 @@ yay()
     sudo -u anton makepkg -si
 }
 
+
+application()
+{
+    pacman -S --noconfirm rxvt-unicode firefox ranger nautilus arduino kicad openscad
+}
+
+
 aur_application()
 {
     sudo -u anton yay -S polybar siji termsyn-font
 }
+
+
+i3()
+{
+    pacman -S --noconfirm dialog wpa_supplicant openssl xorg xorg-xinit xorg-server lightdm lightdm-gtk-greeter i3-gaps i3status dmenu feh alsa-utils
+    systemctl enable lightdm
+}
+
+
+dwm()
+{
+    pacman -S --noconfirm dialog openssl xorg xorg-xinit xorg-server xorg-xsetroot lightdm lightdm-gtk-greeter dmenu feh alsa-utils sxhkd 
+    systemctl enable lightdm
+    sudo -u anton yay -S libxft-bgra
+    git clone https://github.com/LukeSmithxyz/dwm.git
+    cd dwm
+    make install
+}
+
+
+st()
+{
+    git clone https://github.com/LukeSmithxyz/st
+    cd st
+    make install
+}
+
+
+stow()
+{
+    cd /home/$USER
+    git clone $DOTFILES
+    cd dotfiles
+    #rm /home/$sudo -u $USER/.bashrc
+    #rm  /home/$USER/.bashrc
+    rm  /home/$USER/.zshrc
+    sudo -u $USER stow urxvt emacs zsh ranger zathura 
+}
+
 
 end()
 {
@@ -145,6 +190,7 @@ end()
     reboot
     '
 }
+
 
 
 # Acctual install
@@ -159,4 +205,10 @@ grub
 user
 directory
 zsh
+application
+aur_application
+dwm
+st
+stow
+
 end
