@@ -158,6 +158,7 @@ dwm()
     git clone https://github.com/LukeSmithxyz/dwm.git
     cd dwm
     make install
+    sudo -u anton echo "exec dwm" >> ~/.xinitrc
 }
 
 
