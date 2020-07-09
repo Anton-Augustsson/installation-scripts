@@ -152,13 +152,16 @@ i3()
 
 dwm()
 {
-    pacman -S --noconfirm dialog openssl xorg xorg-xinit xorg-server xorg-xsetroot lightdm lightdm-gtk-greeter dmenu feh alsa-utils sxhkd 
+    pacman -S --noconfirm dialog openssl xorg xorg-xrandr xorg-xinit xorg-server xorg-xsetroot lightdm lightdm-gtk-greeter dmenu feh alsa-utils sxhkd picom
     systemctl enable lightdm
     sudo -u anton yay -S libxft-bgra
     git clone https://github.com/LukeSmithxyz/dwm.git
     cd dwm
     make install
-    sudo -u anton echo "exec dwm" >> ~/.xinitrc
+    sudo -u anton echo "
+    exec dwm
+    sxhkd" >> ~/.xinitrc
+    
 }
 
 
