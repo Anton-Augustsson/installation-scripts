@@ -110,6 +110,12 @@ directory()
 }
 
 
+dependencies()
+{
+    pacman -Syu
+    pacman -S git
+}
+
 zsh()
 {
     pacman -S --noconfirm zsh zsh-completions zsh-syntax-highlighting git
@@ -123,8 +129,8 @@ zsh()
 yay()
 {
     pacman -S --noconfirm --needed base-devel git
-    cd /home/anton/Programs
-    sudo -u anton git clone https://aur.archlinux.org/yay.git
+    cd /home/$USER/Programs
+    sudo -u $USER git clone https://aur.archlinux.org/yay.git
     chmod 777 yay
     cd yay
     sudo -u $USER makepkg -si
@@ -159,9 +165,7 @@ dwm()
     git clone https://github.com/LukeSmithxyz/dwm.git
     cd dwm
     make install
-    sudo -u $USER echo "
-    exec dwm
-    sxhkd" >> /home/$USER/.xinitrc
+    #sudo -u $USER echo "exec dwm sxhkd" >> /home/$USER/.xinitrc
     
 }
 
@@ -206,6 +210,8 @@ host_conf
 root_password
 swe_conf
 mirror_listanton
+
+dependencies
 ssh
 grub
 user
