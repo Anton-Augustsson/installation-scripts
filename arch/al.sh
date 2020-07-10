@@ -133,7 +133,7 @@ yay()
 
 application()
 {
-    pacman -S --noconfirm rxvt-unicode firefox ranger nautilus arduino kicad openscad
+    pacman -S --noconfirm rxvt-unicode chromium ranger nautilus arduino kicad openscad
 }
 
 
