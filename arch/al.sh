@@ -94,18 +94,18 @@ user()
     #echo 'foobar ALL=(ALL:ALL) ALL' | sudo EDITOR='tee -a' visudo
     EDITOR=emacs visudo
 
-    useradd -m -G wheel -s /bin/bash anton
+    useradd -m -G wheel -s /bin/bash $USER
     echo '
-    write your password user
+    write your password $USER
     '
-    passwd anton
+    passwd $USER
 }
 
 
 directory()
 {
-    cd /home/anton
-    sudo -u anton mkdir Programs Documents Documents/git-projects Pictures Pictures/wallpaper Downloads
+    cd /home/$USER
+    sudo -u $USER mkdir Programs Documents Documents/git-projects Pictures Pictures/wallpaper Downloads
     chmod 777 Programs Documents Documents/git-projects Pictures Pictures/wallpaper Downloads
 }
 
@@ -127,7 +127,7 @@ yay()
     sudo -u anton git clone https://aur.archlinux.org/yay.git
     chmod 777 yay
     cd yay
-    sudo -u anton makepkg -si
+    sudo -u $USER makepkg -si
 }
 
 
@@ -139,7 +139,7 @@ application()
 
 aur_application()
 {
-    sudo -u anton yay -S polybar siji termsyn-font
+    sudo -u $USER yay -S polybar siji termsyn-font
 }
 
 
@@ -154,19 +154,21 @@ dwm()
 {
     pacman -S --noconfirm dialog openssl xorg xorg-xrandr xorg-xinit xorg-server xorg-xsetroot lightdm lightdm-gtk-greeter dmenu feh alsa-utils sxhkd picom
     systemctl enable lightdm
-    sudo -u anton yay -S libxft-bgra
+    sudo -u $USER yay -S libxft-bgra
+    cd /home/$USER/Programs
     git clone https://github.com/LukeSmithxyz/dwm.git
     cd dwm
     make install
-    sudo -u anton echo "
+    sudo -u $USER echo "
     exec dwm
-    sxhkd" >> ~/.xinitrc
+    sxhkd" >> /home/$USER/.xinitrc
     
 }
 
 
 st()
 {
+    cd /home/$USER/Programs
     git clone https://github.com/LukeSmithxyz/st
     cd st
     make install
@@ -203,7 +205,7 @@ welcome
 host_conf
 root_password
 swe_conf
-mirror_list
+mirror_listanton
 ssh
 grub
 user
