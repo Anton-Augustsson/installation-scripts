@@ -216,6 +216,8 @@ ssh
 grub
 user
 directory
+
+yay
 zsh
 application
 aur_application
