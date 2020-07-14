@@ -54,7 +54,7 @@ swe_conf() {
 
 dependencies() {
     pacman -Syu --noconfirm
-    pacman -S --noconfirm git wget net-tools 
+    pacman -S --noconfirm --needed base-devel git wget net-tools 
 }
 
 
@@ -88,7 +88,6 @@ grub() {
 user() {
     #echo 'foobar ALL=(ALL:ALL) ALL' | sudo EDITOR='tee -a' visudo
     EDITOR=emacs visudo
-
     useradd -m -G wheel -s /bin/bash $USER
     echo '
     write your password $USER
@@ -110,7 +109,7 @@ yay() {
     sudo -u $USER git clone https://aur.archlinux.org/yay.git
     chmod 777 yay
     cd yay
-    sudo -u $USER makepkg -si
+    sudo -u $USER makepkg -si 
 }
 
 
@@ -129,7 +128,7 @@ application() {
 
 
 aur_application() {
-    sudo -u $USER yay -S polybar siji termsyn-font
+    sudo -u $USER yay -S --noconfirm siji termsyn-font
 }
 
 
@@ -160,7 +159,7 @@ st() {
 
 
 sxhkd() {
-    pacman -S sxhkd
+    pacman -S --noconfirm sxhkd
     mkdir /home/$USER/Programs/sxhkd
     cd /home/$USER/Programs/sxhkd
     wget -o https://raw.githubusercontent.com/baskerville/sxhkd/master/contrib/systemd/sxhkd.service /etc/systemd/system/sxhkd.service
