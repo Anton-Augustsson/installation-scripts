@@ -52,6 +52,12 @@ swe_conf() {
 }
 
 
+dependencies() {
+    pacman -Syu --noconfirm
+    pacman -S --noconfirm git wget net-tools 
+}
+
+
 mirror_list() {
     pacman -S --noconfirm pacman-contrib
     cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
@@ -97,19 +103,6 @@ directory() {
     chmod 777 Programs Documents Documents/git-projects Pictures Pictures/wallpaper Downloads
 }
 
-dependencies() {
-    pacman -Syu --noconfirm
-    pacman -S --noconfirm git wget net-tools 
-}
-
-zsh() {
-    pacman -S --noconfirm zsh zsh-completions zsh-syntax-highlighting git
-    sudo -u $USER chsh -s /bin/zsh
-    sudo -u $USER sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" #moves inside zshell need to exit to continu
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
-}
-
 
 yay() {
     pacman -S --noconfirm --needed base-devel git
@@ -118,6 +111,15 @@ yay() {
     chmod 777 yay
     cd yay
     sudo -u $USER makepkg -si
+}
+
+
+zsh() {
+    pacman -S --noconfirm zsh zsh-completions zsh-syntax-highlighting git
+    sudo -u $USER chsh -s /bin/zsh
+    sudo -u $USER sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" #moves inside zshell need to exit to continu
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
 }
 
 
@@ -148,6 +150,15 @@ dwm() {
     make clean install
 }
 
+
+st() {
+    cd /home/$USER/Programs
+    git clone https://github.com/LukeSmithxyz/st
+    cd st
+    make clean install
+}
+
+
 sxhkd() {
     pacman -S sxhkd
     mkdir /home/$USER/Programs/sxhkd
@@ -155,13 +166,6 @@ sxhkd() {
     wget -o https://raw.githubusercontent.com/baskerville/sxhkd/master/contrib/systemd/sxhkd.service /etc/systemd/system/sxhkd.service
     systemctl enable sxhkd
     systemctl start sxhkd
-}
-
-st() {
-    cd /home/$USER/Programs
-    git clone https://github.com/LukeSmithxyz/st
-    cd st
-    make clean install
 }
 
 
@@ -193,7 +197,7 @@ installMinimal(){
     swe_conf
 
     dependencies
-    mirror_listanton
+    mirror_list
     network
     ssh
     grub
