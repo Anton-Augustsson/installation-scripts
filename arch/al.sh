@@ -209,10 +209,10 @@ welcome
 host_conf
 root_password
 swe_conf
-mirror_listanton
-network
 
 dependencies
+mirror_listanton
+network
 ssh
 grub
 user
