@@ -138,12 +138,13 @@ i3() {
 
 
 dwm() {
-    pacman -S --noconfirm dialog openssl xorg xorg-xrandr xorg-xinit xorg-server xorg-xsetroot dmenu feh alsa-utils sxhkd picom
-    systemctl enable lightdm
-    sudo -u $USER yay -S libxft-bgra
+    pacman -S --noconfirm xorg xorg-xrandr xorg-xinit xorg-server xorg-xsetroot dmenu dialog openssl xwallpaper alsa-utils picom nitrogen
+    #sudo -u $USER yay -S libxft-bgra
     cd /home/$USER/Programs
-    git clone https://github.com/LukeSmithxyz/dwm.git
-    cd dwm
+    #git clone https://github.com/LukeSmithxyz/dwm.git
+    wget https://dl.suckless.org/dwm/dwm-6.2.tar.gz
+    tar -xzvf dwm-6.2.tar.gz 
+    cd dwm-6.2
     make clean install
 }
 
