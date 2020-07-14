@@ -6,16 +6,14 @@ HOSTNAME=arch-thinkpad
 DOTFILES=https://github.com/Anton-Augustsson/dotfiles.git
 
 
-welcome()
-{
+welcome() {
     echo ' 
     arch-linux-installation script 
     '
 }
 
 
-host_conf()
-{
+host_conf() {
     echo 'arch-thinkpad' >> /etc/hostname
     echo '
     127.0.0.1    localhost
@@ -25,8 +23,7 @@ host_conf()
 }
 
 
-root_password()
-{
+root_password() {
     echo '
     write your password root
     '
@@ -34,8 +31,7 @@ root_password()
 }
 
 
-swe_conf()
-{
+swe_conf() {
     echo '
     en_GB.UTF-8 UTF-8
     en_GB ISO-8859-1
@@ -53,44 +49,37 @@ swe_conf()
     KEYMAP=sv-latin1
     ' >>/etc/vconsole.conf
     source /etc/vconsole.conf
-
 }
 
 
-mirror_list()
-{
+mirror_list() {
     pacman -S --noconfirm pacman-contrib
     cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
     rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
 }
 
 
-network()
-{
+network() {
     pacman -S --noconfirm jre-openjdk networkmanager
     systemctl enable NetworkManager
 }
 
 
-ssh()
-{
+ssh() {
     pacman -S --noconfirm openssh
     systemctl enable sshd
     systemctl start sshd
 }
 
 
-grub()
-{
+grub() {
     pacman -S --noconfirm grub
     grub-install $DRIVE 
     grub-mkconfig -o /boot/grub/grub.cfg
 }
 
 
-
-user()
-{
+user() {
     #echo 'foobar ALL=(ALL:ALL) ALL' | sudo EDITOR='tee -a' visudo
     EDITOR=emacs visudo
 
@@ -102,22 +91,18 @@ user()
 }
 
 
-directory()
-{
+directory() {
     cd /home/$USER
     sudo -u $USER mkdir Programs Documents Documents/git-projects Pictures Pictures/wallpaper Downloads
     chmod 777 Programs Documents Documents/git-projects Pictures Pictures/wallpaper Downloads
 }
 
-
-dependencies()
-{
-    pacman -Syu
-    pacman -S git
+dependencies() {
+    pacman -Syu --noconfirm
+    pacman -S --noconfirm git wget net-tools 
 }
 
-zsh()
-{
+zsh() {
     pacman -S --noconfirm zsh zsh-completions zsh-syntax-highlighting git
     sudo -u $USER chsh -s /bin/zsh
     sudo -u $USER sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" #moves inside zshell need to exit to continu
@@ -126,8 +111,7 @@ zsh()
 }
 
 
-yay()
-{
+yay() {
     pacman -S --noconfirm --needed base-devel git
     cd /home/$USER/Programs
     sudo -u $USER git clone https://aur.archlinux.org/yay.git
@@ -137,62 +121,59 @@ yay()
 }
 
 
-application()
-{
+application() {
     pacman -S --noconfirm rxvt-unicode chromium ranger nautilus arduino kicad openscad
 }
 
 
-aur_application()
-{
+aur_application() {
     sudo -u $USER yay -S polybar siji termsyn-font
 }
 
 
-i3()
-{
+i3() {
     pacman -S --noconfirm dialog wpa_supplicant openssl xorg xorg-xinit xorg-server lightdm lightdm-gtk-greeter i3-gaps i3status dmenu feh alsa-utils
     systemctl enable lightdm
 }
 
 
-dwm()
-{
-    pacman -S --noconfirm dialog openssl xorg xorg-xrandr xorg-xinit xorg-server xorg-xsetroot lightdm lightdm-gtk-greeter dmenu feh alsa-utils sxhkd picom
+dwm() {
+    pacman -S --noconfirm dialog openssl xorg xorg-xrandr xorg-xinit xorg-server xorg-xsetroot dmenu feh alsa-utils sxhkd picom
     systemctl enable lightdm
     sudo -u $USER yay -S libxft-bgra
     cd /home/$USER/Programs
     git clone https://github.com/LukeSmithxyz/dwm.git
     cd dwm
-    make install
-    #sudo -u $USER echo "exec dwm sxhkd" >> /home/$USER/.xinitrc
-    
+    make clean install
 }
 
+sxhkd() {
+    pacman -S sxhkd
+    mkdir /home/$USER/Programs/sxhkd
+    cd /home/$USER/Programs/sxhkd
+    wget -o https://raw.githubusercontent.com/baskerville/sxhkd/master/contrib/systemd/sxhkd.service /etc/systemd/system/sxhkd.service
+    systemctl enable sxhkd
+    systemctl start sxhkd
+}
 
-st()
-{
+st() {
     cd /home/$USER/Programs
     git clone https://github.com/LukeSmithxyz/st
     cd st
-    make install
+    make clean install
 }
 
 
-stow()
-{
+stow() {
     cd /home/$USER
-    git clone $DOTFILES
+    sudo -u $USER git clone $DOTFILES
     cd dotfiles
-    #rm /home/$sudo -u $USER/.bashrc
-    #rm  /home/$USER/.bashrc
-    rm  /home/$USER/.zshrc
-    sudo -u $USER stow urxvt emacs zsh ranger zathura 
+    rm /home/$USER/.zshrc
+    sudo -u $USER stow sxhkd emacs zsh ranger zathura xorg
 }
 
 
-end()
-{
+end() {
     echo '
     # Finnish
     exit
@@ -203,27 +184,39 @@ end()
 
 
 
+# Installation options
+
+installMinimal(){
+    host_conf
+    root_password
+    swe_conf
+
+    dependencies
+    mirror_listanton
+    network
+    ssh
+    grub
+
+    user
+    directory
+    yay
+    zsh
+}
+
+installDesktop(){
+    application
+    aur_application
+    dwm
+    st
+    sxhkd
+    stow
+}
+
+
+
 # Acctual install
 
 welcome
-host_conf
-root_password
-swe_conf
-
-dependencies
-mirror_listanton
-network
-ssh
-grub
-user
-directory
-
-yay
-zsh
-application
-aur_application
-dwm
-st
-stow
-
+installMinimal
+installDesktop
 end
