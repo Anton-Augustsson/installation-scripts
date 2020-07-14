@@ -210,6 +210,7 @@ host_conf
 root_password
 swe_conf
 mirror_listanton
+network
 
 dependencies
 ssh
