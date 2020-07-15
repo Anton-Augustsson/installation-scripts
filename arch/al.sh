@@ -150,6 +150,13 @@ dwm() {
     make clean install
 }
 
+dwmStatusBar(){
+    cd /home/$USER
+    git clone https://github.com/joestandring/dwm-bar.git
+    cd dwm-bar
+    chmod +x dwm_bar.sh
+    #.xinit /home/$USER/dwm-bar/dwm_bar.sh &
+}
 
 st() {
     cd /home/$USER/Programs
@@ -213,6 +220,7 @@ installDesktop(){
     application
     aur_application
     dwm
+    dwmStatusBar
     st
     sxhkd
     stow
