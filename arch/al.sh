@@ -123,13 +123,19 @@ zsh() {
 }
 
 
+fonts() {
+    pacman -S --noconfirm ttf-font-awesome
+    sudo -u $USER yay -S --noconfirm siji nerd-fonts-complete
+}
+
+
 application() {
     pacman -S --noconfirm rxvt-unicode chromium ranger nautilus arduino kicad openscad
 }
 
 
 aur_application() {
-    sudo -u $USER yay -S --noconfirm siji termsyn-font
+    #sudo -u $USER yay -S --noconfirm 
 }
 
 
@@ -217,6 +223,7 @@ installMinimal(){
 }
 
 installDesktop(){
+    fonts
     application
     aur_application
     dwm
