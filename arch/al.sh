@@ -14,12 +14,12 @@ welcome() {
 
 
 host_conf() {
-    echo 'arch-thinkpad' >> /etc/hostname
-    echo '
+    echo "$HOSTNAME" >> /etc/hostname
+    echo "
     127.0.0.1    localhost
     ::1          localhost
-    127.0.1.1    al-thinkpad.localdomain    al-thinkpad
-    '  >> /etc/hosts
+    127.0.1.1    $HOSTNAME.localdomain    $HOSTNAME
+    "  >> /etc/hosts
 }
 
 
