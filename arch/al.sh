@@ -61,6 +61,7 @@ dependencies() {
 mirror_list() {
     pacman -S --noconfirm pacman-contrib
     cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
+    echo "Creating mirrorlist"
     rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
 }
 
@@ -169,6 +170,7 @@ sxhkd() {
 
 
 stow() {
+    pacman -S --noconfirm stow
     cd /home/$USER
     sudo -u $USER git clone $DOTFILES
     cd dotfiles
