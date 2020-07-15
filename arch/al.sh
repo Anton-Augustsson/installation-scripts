@@ -90,9 +90,9 @@ user() {
     #echo 'foobar ALL=(ALL:ALL) ALL' | sudo EDITOR='tee -a' visudo
     EDITOR=emacs visudo
     useradd -m -G wheel -s /bin/bash $USER
-    echo '
+    echo "
     write your password $USER
-    '
+    "
     passwd $USER
 }
 
@@ -118,8 +118,8 @@ zsh() {
     pacman -S --noconfirm zsh zsh-completions zsh-syntax-highlighting git
     sudo -u $USER chsh -s /bin/zsh
     sudo -u $USER sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" #moves inside zshell need to exit to continu
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+    sudo -u $USER git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    sudo -u $USER git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
 }
 
 
