@@ -61,7 +61,7 @@ dependencies() {
 mirror_list() {
     pacman -S --noconfirm pacman-contrib
     cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.backup
-    echo "Creating mirrorlist"
+    echo "Creating mirrorlist (This will take a while)"
     rankmirrors -n 6 /etc/pacman.d/mirrorlist.backup > /etc/pacman.d/mirrorlist
 }
 
@@ -135,6 +135,7 @@ application() {
 
 
 aur_application() {
+    sudo -u $USER yay -Syu --noconfirm 
     #sudo -u $USER yay -S --noconfirm 
 }
 
