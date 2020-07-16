@@ -117,9 +117,10 @@ yay() {
 zsh() {
     pacman -S --noconfirm zsh zsh-completions zsh-syntax-highlighting git
     sudo -u $USER chsh -s /bin/zsh
+    cd /home/$USER 
     sudo -u $USER sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" #moves inside zshell need to exit to continu
-    sudo -u $USER git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    sudo -u $USER git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+    sudo -u $USER git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:=/home/$USER/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    sudo -u $USER git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=/home/$USER/.oh-my-zsh/custom}/plugins/zsh-completions
 }
 
 
