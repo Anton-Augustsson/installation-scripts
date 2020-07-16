@@ -54,7 +54,7 @@ swe_conf() {
 
 dependencies() {
     pacman -Syu --noconfirm
-    pacman -S --noconfirm --needed base-devel git wget net-tools 
+    pacman -S --noconfirm --needed base-devel emacs wget net-tools 
 }
 
 
@@ -99,8 +99,9 @@ user() {
 
 directory() {
     cd /home/$USER
-    sudo -u $USER mkdir Programs Documents Documents/git-projects Pictures Pictures/wallpaper Downloads
-    chmod 777 Programs Documents Documents/git-projects Pictures Pictures/wallpaper Downloads
+    sudo -u $USER mkdir Programs Downloads Pictures Pictures/wallpaper
+    sudo -u $USER mkdir Documents Documents/git-projects School
+    sudo -u $USER mkdir Development Development/electronics Development/programing Development/woodworking
 }
 
 
@@ -124,6 +125,13 @@ zsh() {
 }
 
 
+gitConf() {
+    pacman -Syu git
+    git config --global user.email "anton.augustsson99@gmail.com"
+    git config --global user.name "anton"
+}
+
+
 fonts() {
     pacman -S --noconfirm ttf-font-awesome
     sudo -u $USER yay -S --noconfirm siji nerd-fonts-complete
@@ -131,7 +139,7 @@ fonts() {
 
 
 application() {
-    pacman -S --noconfirm rxvt-unicode chromium ranger nautilus arduino kicad openscad
+    pacman -S --noconfirm rxvt-unicode chromium ranger w3m  nautilus arduino kicad openscad
 }
 
 
@@ -148,7 +156,7 @@ i3() {
 
 
 dwm() {
-    pacman -S --noconfirm xorg xorg-xrandr xorg-xinit xorg-server xorg-xsetroot dmenu dialog openssl xwallpaper alsa-utils picom nitrogen
+    pacman -S --noconfirm xorg xorg-xrandr xorg-xinit xorg-server xorg-xsetroot dmenu dialog openssl xwallpaper alsa-utils picom nitrogen sxhkd
     #sudo -u $USER yay -S libxft-bgra
     cd /home/$USER/Programs
     #git clone https://github.com/LukeSmithxyz/dwm.git
@@ -174,13 +182,8 @@ st() {
 }
 
 
-sxhkd() {
-    pacman -S --noconfirm sxhkd
-    mkdir /home/$USER/Programs/sxhkd
-    cd /home/$USER/Programs/sxhkd
-    wget -o https://raw.githubusercontent.com/baskerville/sxhkd/master/contrib/systemd/sxhkd.service /etc/systemd/system/sxhkd.service
-    systemctl enable sxhkd
-    systemctl start sxhkd
+powerline() {
+    sudo pacman -S powerline powerline-fonts
 }
 
 
@@ -190,6 +193,7 @@ stow() {
     sudo -u $USER git clone $DOTFILES
     cd dotfiles
     rm /home/$USER/.zshrc
+    mv /home/$USER/.oh-my-zsh /home/$USER/.config/oh-my-zsh
     sudo -u $USER stow sxhkd emacs zsh ranger zathura xorg
 }
 
@@ -222,6 +226,7 @@ installMinimal(){
     directory
     yay
     zsh
+    gitConf
 }
 
 installDesktop(){
@@ -231,7 +236,7 @@ installDesktop(){
     dwm
     dwmStatusBar
     st
-    sxhkd
+    powerline
     stow
 }
 
