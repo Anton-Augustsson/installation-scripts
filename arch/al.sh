@@ -139,7 +139,7 @@ fonts() {
 
 
 application() {
-    pacman -S --noconfirm rxvt-unicode chromium ranger w3m  nautilus arduino kicad openscad
+    pacman -S --noconfirm rxvt-unicode chromium ranger w3m  nautilus arduino kicad openscad zathura zathura-pdf-mupdf zathura-djvu
 }
 
 
