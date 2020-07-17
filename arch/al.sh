@@ -139,7 +139,7 @@ fonts() {
 
 
 application() {
-    pacman -S --noconfirm rxvt-unicode chromium ranger w3m  nautilus arduino kicad openscad zathura zathura-pdf-mupdf zathura-djvu
+    pacman -S --noconfirm rxvt-unicode chromium ranger w3m  nautilus arduino kicad openscad zathura zathura-pdf-mupdf zathura-djvu scrot
 }
 
 
@@ -156,7 +156,7 @@ i3() {
 
 
 dwm() {
-    pacman -S --noconfirm xorg xorg-xrandr xorg-xinit xorg-server xorg-xsetroot dmenu dialog openssl xwallpaper alsa-utils picom nitrogen sxhkd
+    pacman -S --noconfirm xorg xorg-xrandr xorg-xinit xorg-server xorg-xsetroot dmenu dialog openssl xwallpaper alsa-utils picom nitrogen sxhkd xlockmore
     #sudo -u $USER yay -S libxft-bgra
     cd /home/$USER/Programs
     #git clone https://github.com/LukeSmithxyz/dwm.git
