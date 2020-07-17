@@ -99,7 +99,7 @@ user() {
 
 directory() {
     cd /home/$USER
-    sudo -u $USER mkdir Programs Downloads Pictures Pictures/wallpaper
+    sudo -u $USER mkdir Programs Downloads Pictures Pictures/wallpaper Pictures/Screenshots
     sudo -u $USER mkdir Documents Documents/git-projects School
     sudo -u $USER mkdir Development Development/electronics Development/programing Development/woodworking
 }
@@ -128,7 +128,7 @@ zsh() {
 gitConf() {
     pacman -Syu git
     git config --global user.email "anton.augustsson99@gmail.com"
-    git config --global user.name "anton"
+    git config --global user.name "Anton-Augustsson"
 }
 
 
@@ -139,7 +139,7 @@ fonts() {
 
 
 application() {
-    pacman -S --noconfirm rxvt-unicode chromium ranger w3m  nautilus arduino kicad openscad zathura zathura-pdf-mupdf zathura-djvu scrot
+    pacman -S --noconfirm rxvt-unicode chromium ranger w3m  nautilus arduino kicad openscad zathura zathura-pdf-mupdf zathura-djvu scrot gimp
 }
 
 
