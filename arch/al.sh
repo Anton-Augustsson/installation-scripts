@@ -156,10 +156,12 @@ i3() {
 
 
 dwm() {
-    pacman -S --noconfirm xorg xorg-xrandr xorg-xinit xorg-server xorg-xsetroot dmenu dialog openssl xwallpaper alsa-utils picom nitrogen sxhkd xlockmore
-    #sudo -u $USER yay -S libxft-bgra
+    # Core dwm dependencies
+    pacman -S --noconfirm xorg xorg-xrandr xorg-xinit xorg-server xorg-xsetroot dmenu alsa-utils
+    # Extra dwm dependencies
+    pacman -S --noconfirm dialog openssl xwallpaper picom nitrogen sxhkd xlockmore brightnessctl
+    
     cd /home/$USER/Programs
-    #git clone https://github.com/LukeSmithxyz/dwm.git
     wget https://dl.suckless.org/dwm/dwm-6.2.tar.gz
     tar -xzvf dwm-6.2.tar.gz 
     cd dwm-6.2
@@ -167,11 +169,8 @@ dwm() {
 }
 
 dwmStatusBar(){
-    cd /home/$USER
-    git clone https://github.com/joestandring/dwm-bar.git
-    cd dwm-bar
-    chmod +x dwm_bar.sh
-    #.xinit /home/$USER/dwm-bar/dwm_bar.sh &
+    sudo -u $USER git clone https://github.com/Anton-Augustsson/dwm_bar.git /home/$USER/.config/dwm_bar
+    sudo -u $USER chmod +x  /home/$USER/.config/dwm_bar/dwm_bar.sh
 }
 
 st() {
