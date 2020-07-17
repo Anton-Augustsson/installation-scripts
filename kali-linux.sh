@@ -6,9 +6,8 @@
 
 
 
-
 ##############################################################################
-echo "Kali linux Installation script Rev1"
+echo "Kali linux Installation script"
 echo "
 
 
