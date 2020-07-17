@@ -4,7 +4,8 @@ DRIVE=/dev/xvda
 USER=anton
 HOSTNAME=arch-thinkpad
 DOTFILES=https://github.com/Anton-Augustsson/dotfiles.git
-
+GITEMAIL="Anton.Augustsson4804@student.uu.se"
+GITNAME="Anton-Augustsson"
 
 welcome() {
     echo ' 
@@ -127,8 +128,8 @@ zsh() {
 
 gitConf() {
     pacman -Syu git
-    git config --global user.email "anton.augustsson99@gmail.com"
-    git config --global user.name "Anton-Augustsson"
+    git config --global user.email $GITEMAIL
+    git config --global user.name $GITNAME
 }
 
 
