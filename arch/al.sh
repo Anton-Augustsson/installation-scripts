@@ -4,7 +4,7 @@ DRIVE=/dev/xvda
 USER=anton
 HOSTNAME=arch-thinkpad
 DOTFILES=https://github.com/Anton-Augustsson/dotfiles.git
-GITEMAIL="Anton.Augustsson4804@student.uu.se"
+GITEMAIL="Anton.Augustsson.4804@student.uu.se"
 GITNAME="Anton-Augustsson"
 
 welcome() {
