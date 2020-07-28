@@ -1,6 +1,6 @@
 # Gloabal variables
 EDITOR=emacs 
-DRIVE=/dev/xvda
+#DRIVE=/dev/xvda
 USER=anton
 HOSTNAME=arch-thinkpad
 DOTFILES=https://github.com/Anton-Augustsson/dotfiles.git
@@ -13,6 +13,25 @@ welcome() {
     '
 }
 
+retry_diskinput() {
+    while true; do
+    read -p "Do you wish to re enter disk? y/n " yn
+    case $yn in
+        [Yy]* ) diskinput;;
+        [Nn]* ) break;;
+        * ) echo "Please answer yes or no.";;
+    esac
+    done
+}
+
+diskinput() {
+    lsblk
+    read -p 'Disk: (sda) ' d
+    DRIVE=/dev/$d
+    echo "your disk is $disk"
+    lsblk | grep $d
+    retry_diskinput
+}
 
 host_conf() {
     echo "$HOSTNAME" >> /etc/hostname
@@ -23,12 +42,23 @@ host_conf() {
     "  >> /etc/hosts
 }
 
+retry_rootpassword() {
+    while true; do
+    read -p "Do you wish to re enter password? y/n " yn
+    case $yn in
+        [Yy]* ) root_password;;
+        [Nn]* ) break;;
+        * ) echo "Please answer yes or no.";;
+    esac
+    done
+}
 
 root_password() {
     echo '
     write your password root
     '
     passwd
+    retry_rootpassword
 }
 
 
@@ -87,14 +117,30 @@ grub() {
 }
 
 
-user() {
-    #echo 'foobar ALL=(ALL:ALL) ALL' | sudo EDITOR='tee -a' visudo
-    EDITOR=emacs visudo
-    useradd -m -G wheel -s /bin/bash $USER
+retry_userpassword() {
+    while true; do
+    read -p "Do you wish to re enter password? y/n " yn
+    case $yn in
+        [Yy]* ) user_password;;
+        [Nn]* ) break;;
+        * ) echo "Please answer yes or no.";;
+    esac
+    done
+}
+
+user_password() {
     echo "
     write your password $USER
     "
     passwd $USER
+    retry_userpassword
+}    
+
+user() {
+    #echo 'foobar ALL=(ALL:ALL) ALL' | sudo EDITOR='tee -a' visudo
+    EDITOR=emacs visudo
+    useradd -m -G wheel -s /bin/bash $USER
+    user_password
 }
 
 
@@ -140,7 +186,7 @@ fonts() {
 
 
 application() {
-    pacman -S --noconfirm rxvt-unicode chromium ranger w3m  nautilus arduino kicad openscad zathura zathura-pdf-mupdf zathura-djvu scrot gimp
+    pacman -S --noconfirm rxvt-unicode chromium ranger w3m vlc nautilus arduino kicad openscad zathura zathura-pdf-mupdf zathura-djvu scrot gimp
 }
 
 
@@ -212,6 +258,7 @@ end() {
 # Installation options
 
 installMinimal(){
+    diskinput
     host_conf
     root_password
     swe_conf
