@@ -28,7 +28,7 @@ diskinput() {
     lsblk
     read -p 'Disk: (sda) ' d
     DRIVE=/dev/$d
-    echo "your disk is $disk"
+    echo "your disk is $DRIVE"
     lsblk | grep $d
     retry_diskinput
 }
@@ -173,7 +173,7 @@ zsh() {
 
 
 gitConf() {
-    pacman -Syu git
+    pacman -Syu --noconfirm git
     git config --global user.email $GITEMAIL
     git config --global user.name $GITNAME
 }
