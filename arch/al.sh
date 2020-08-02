@@ -147,7 +147,7 @@ user() {
 directory() {
     cd /home/$USER
     sudo -u $USER mkdir Programs Downloads Pictures Pictures/wallpaper Pictures/Screenshots
-    sudo -u $USER mkdir Documents Documents/git-projects School
+    sudo -u $USER mkdir Documents School
     sudo -u $USER mkdir Development Development/electronics Development/programing Development/woodworking
 }
 
@@ -174,14 +174,14 @@ zsh() {
 
 gitConf() {
     pacman -Syu --noconfirm git
-    git config --global user.email $GITEMAIL
-    git config --global user.name $GITNAME
+    sudo -u $USER git config --global user.email $GITEMAIL
+    sudo -u $USER git config --global user.name $GITNAME
 }
 
 
 fonts() {
     pacman -S --noconfirm ttf-font-awesome
-    sudo -u $USER yay -S --noconfirm siji nerd-fonts-complete
+    sudo -u $USER yay -S --noconfirm siji nerd-fonts-complete  # Nerd font is 2Gb
 }
 
 
@@ -240,7 +240,7 @@ stow() {
     cd dotfiles
     rm /home/$USER/.zshrc
     mv /home/$USER/.oh-my-zsh /home/$USER/.config/oh-my-zsh
-    sudo -u $USER stow sxhkd emacs zsh ranger zathura xorg
+    sudo -u $USER stow sxhkd emacs zsh ranger zathura xorg wallpaper
 }
 
 
