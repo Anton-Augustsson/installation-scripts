@@ -1,6 +1,6 @@
 # Gloabal variables
 EDITOR=emacs 
-#DRIVE=/dev/xvda
+#DRIVE=/dev/xvda 
 USER=anton
 HOSTNAME=arch-thinkpad
 DOTFILES=https://github.com/Anton-Augustsson/dotfiles.git
@@ -24,6 +24,7 @@ retry_diskinput() {
     done
 }
 
+# User write what disk to use, insted of constant drive 
 diskinput() {
     lsblk
     read -p 'Disk: (sda) ' d
@@ -186,7 +187,7 @@ fonts() {
 
 
 application() {
-    pacman -S --noconfirm rxvt-unicode chromium ranger w3m vlc nautilus arduino kicad openscad zathura zathura-pdf-mupdf zathura-djvu scrot gimp
+    pacman -S --noconfirm rxvt-unicode chromium ranger w3m vlc nautilus arduino kicad openscad zathura zathura-pdf-mupdf zathura-djvu scrot gimp gdb
 }
 
 
