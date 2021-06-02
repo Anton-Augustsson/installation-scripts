@@ -33,22 +33,13 @@ prompt() {
 welcome() {
     echo '
     debian-installation script
+    RUN AS ROOT
     '
     prompt "Do you wish to preside with the installation as $USER?" $(echo "prosiding") $(exit 0)
 }
 
-dependencies() {
-    apt install curl git wget net-tools sudo $EDITOR
-}
-
-# mirror_list
-
-# sudo usermod -a -G sudo $USER
-
-
-#
 gitConf() {
-    read -r -p "Git email: " gitEmail
+    read -r -p "\nGit email: " gitEmail
     read -r -p "Git name: " gitName
 
     prompt "Confinnue with $gitEmail and $gitNme" $(echo "confinuing") $(exit 0)
@@ -56,6 +47,15 @@ gitConf() {
     sudo -u $USER git config --global user.email $gitEmail
     sudo -u $USER git config --global user.name $gitName
 }
+
+dependencies() {
+    apt install --yes curl git wget net-tools sudo $EDITOR
+}
+
+# mirror_list
+
+# sudo usermod -a -G sudo $USER
+
 
 application() {
     apt install --yes $BROWSER ranger w3m vlc nautilus arduino kicad openscad zathura scrot gimp gdb
@@ -69,15 +69,15 @@ directory() {
 }
 
 zsh() {
-    apt-get install zsh zsh-syntax-highlighting git powerline
-    sudo -u $USER chsh -s /bin/zsh
+    apt-get install --yes zsh zsh-syntax-highlighting git powerline
+    sudo -u $USER chsh -s /bin/zsh #TODO: prevent changing imediatly and password
     cd /home/$USER
     sudo -u $USER sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" #moves inside zshell need to exit to continu
     sudo -u $USER git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:=/home/$USER/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 }
 
 dwm() {
-    sudo apt-get install dwm suckless-tools stterm dmenu xorg sxhkd
+    sudo apt-get install --yes dwm suckless-tools stterm dmenu xorg sxhkd
     echo dwm > .xsession
     sudo -u $USER git clone https://github.com/Anton-Augustsson/dwm_bar.git /home/$USER/.config/dwm_bar
     sudo -u $USER chmod +x /home/$USER/.config/dwm_bar/dwm_bar.sh
@@ -90,24 +90,19 @@ stow() {
     cd dotfiles
     rm /home/$USER/.zshrc
     mv /home/$USER/.oh-my-zsh /home/$USER/.config/oh-my-zsh
-    sudo -u $USER stow sxhkd emacs zsh ranger zathura wallpaper
+    sudo -u $USER stow sxhkd emacs zsh ranger xorg zathura wallpaper
 }
 
 
 end() {
-    echo '
-    # Finnish
-    exit
-    umount -R /mnt
-    reboot
-    '
+    prompt "\n\n------------Finnisht-----------\n reboot" $(sudo reboot) $(echo "{sudo reboot} when your done")
 }
 
 # Installation function
 install() {
     welcome
-    dependencies
     gitConf
+    dependencies
     application
     directory
     zsh
