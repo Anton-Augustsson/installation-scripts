@@ -83,6 +83,10 @@ dwm() {
     sudo -u $USER chmod +x /home/$USER/.config/dwm_bar/dwm_bar.sh
 }
 
+bspwm(){
+    echo "will be added shortly bspwm"
+}
+
 stow() {
     apt install --yes stow
     cd /home/$USER
@@ -93,6 +97,36 @@ stow() {
     sudo -u $USER stow sxhkd emacs zsh ranger xorg zathura wallpaper
 }
 
+
+selectDesktopEnviroment(){
+    echo "\n\n Which desktop enviroment do you want to install?"
+
+    # Operating system names are used here as a data source
+    select de in dwm bspwm none
+    do
+
+    case $de in
+    "dwm")
+    echo "you have selected $de."
+    dwm
+    break
+    ;;
+    "bspwm")
+    echo "you have selected $de."
+    bspwm
+    break
+    ;;
+    "none")
+    echo "No desktop enviroment will be installed"
+    break
+    ;;
+    # Matching with invalid data
+    *)
+    echo "Invalid entry."
+    ;;
+    esac
+    done
+}
 
 end() {
     prompt "\n\n------------Finnisht-----------\n reboot" $(sudo reboot) $(echo "{sudo reboot} when your done")
@@ -113,4 +147,7 @@ install() {
 
 
 # Acctual install
-install
+#install
+selectDesktopEnviroment
+
+# https://linuxize.com/post/how-to-install-visual-studio-code-on-debian-10/
