@@ -57,9 +57,29 @@ gitConf() {
 
 # These are general dependiecies for many diffrent functions, needs to be run after "welcome()"
 dependencies() {
-    sudo apt install --yes aptitude 
+    sudo apt update
+    sudo apt upgrade
+    sudo apt install --yes aptitude stow
 }
 
+# ZSH, vim and ranger
+terminalApplication() {
+    sudo aptitude install --yes vim ranger zsh
+    # Enable zsh
+    chsh -s $(which zsh)
+
+    # Install Oh my zsh
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+    # Oh-my-ZSH plugin autosuggestions
+    git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+    # Oh-my-ZSH plugin syntax highlighting
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+    # Oh-my-ZSH plugin vi mode
+    git clone https://github.com/jeffreytse/zsh-vi-mode.git $ZSH_CUSTOM/plugins/zsh-vi-mode
+
+    # Make sure .zshrc is updated
+}
 
 vscode() {
     sudo aptitude install --yes code openscad texlive-latex-extra
@@ -75,20 +95,23 @@ vscode() {
     code --install-extension aaron-bond.better-comments
 }
 
+zoom() {
+    wget https://zoom.us/client/latest/zoom_amd64.deb
+    sudo apt install ./zoom_amd64.deb
+}
+
+# Keyboad backlight
+backlighting() {
+    sudo aptitude brightnessctl
+    # make sure script is in place
+    # allow user to allow it
+    # key binding /home/anton/Programs/setBacklight.sh
+}
 
 # Installation function
 install() {
     welcome
-    gitConf
-    dependencies
-    application
-    directory
-    zsh
-    dwm
-    stow
-    end
 }
-
 
 # Acctual install
 install
