@@ -64,9 +64,9 @@ dependencies() {
 
 # ZSH, vim and ranger
 terminalApplication() {
-    sudo aptitude install --yes vim ranger zsh
+    #sudo aptitude install vim ranger zsh
     # Enable zsh
-    chsh -s $(which zsh)
+    #chsh -s $(which zsh)
 
     # Install Oh my zsh
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -82,7 +82,7 @@ terminalApplication() {
 }
 
 vscode() {
-    sudo aptitude install --yes code openscad texlive-latex-extra
+    #sudo aptitude install code openscad texlive-latex-extra
 
     # VS_Code extensions 
     code --install-extension Antyos.openscad
@@ -110,7 +110,8 @@ backlighting() {
 
 # Installation function
 install() {
-    welcome
+    vscode 
+    terminalApplication
 }
 
 # Acctual install
