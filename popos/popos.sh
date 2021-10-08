@@ -68,6 +68,9 @@ terminalApplication() {
     # Enable zsh
     #chsh -s $(which zsh)
 
+    # https://linuxhint.com/configure_vim_vimrc/
+    # set clipboard=unnamedplus
+
     # Install Oh my zsh
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
@@ -93,6 +96,10 @@ vscode() {
     code --install-extension James-Yu.latex-workshop
     code --install-extension znck.grammarly
     code --install-extension aaron-bond.better-comments
+
+    # https://github.com/VSCodeVim/Vim
+    # User/settings
+    #"vim.useSystemClipboard": true,
 }
 
 zoom() {
