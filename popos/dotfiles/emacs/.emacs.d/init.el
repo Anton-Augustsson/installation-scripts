@@ -4,7 +4,7 @@
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
 (package-initialize)
-;(package-refresh-contents))
+;(package-refresh-contents) ; Emacs wont work initaly if you dont uncomment this line, yes very bad solution
 
 
 (unless (package-installed-p 'use-package)
