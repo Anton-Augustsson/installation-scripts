@@ -44,17 +44,12 @@
   :custom (evil-collection-setup-minibuffer t)
   :init (evil-collection-init))
 
-
-;; Editing config
-;(load-user-file "editing.el")
-
 ;; Editing config
 (use-package solarized-theme
   :ensure t)
 (load-user-file "apperance.el")
 
 ;; Auto generated config do not change that file
-;(load-user-file "auto-generated.el")
 (use-package projectile
   :ensure t)
 (use-package page-break-lines
@@ -81,58 +76,49 @@
   :mode ("README\\.md\\'" . gfm-mode)
   :init (setq markdown-command "multimarkdown"))
 
-;(use-package languagetool
-;  :ensure t
-;  :defer t
-;  :commands (languagetool-check
-;             languagetool-clear-suggestions
-;             languagetool-correct-at-point
-;             languagetool-correct-buffer
-;             languagetool-set-language
-;             languagetool-server-mode
-;             languagetool-server-start
-;             languagetool-server-stop)
-;  :config
-;  (setq languagetool-java-arguments '("-Dfile.encoding=UTF-8")
-;        languagetool-console-command "~/.languagetool/languagetool-commandline.jar"
-;        languagetool-server-command "~/.languagetool/languagetool-server.jar"))
-;(use-package langtool
-;  :init
-;  (setq langtool-bin "/snap/bin/languagetool"))
-;(require 'langtool)
-
-;(setq langtool-java-classpath
-;      "/usr/share/language-tools:/usr/share/java/language-tools/*")
-;(require 'langtool)
-
-;(setq langtool-language-tool-jar "~/Programs/LanguageTool-5.6/languagetool-commandline.jar")
-;(require 'langtool)
-;(setq langtool-java-bin "/usr/bin/java")
-;(setq langtool-default-language "en-US")
-;(add-hook 'markdown-mode-hook
-;          (lambda () (set (make-local-variable 'langtool-java-user-arguments)
-;                         '("-Dfile.encoding=UTF-8"))))
-
-; https://languagetool.org/download/
-; https://simpleit.rocks/lisp/emacs/writing-in-emacs-checking-spelling-style-and-grammar/
-; https://www.reddit.com/r/emacs/comments/tgnom4/need_help_with_langtool/
-; https://github.com/emacs-languagetool/flycheck-languagetool
-
-; python linting
 (use-package flycheck
   :ensure t
-  :config 
+  :config
   (global-flycheck-mode))
 
-; Spelling and grammer check
-(use-package flycheck-languagetool
-  :ensure t
-  :hook (markdown-mode . flycheck-languagetool-setup)
-  :init
-  (setq flycheck-languagetool-server-jar "~/Programs/LanguageTool-5.6/languagetool-server.jar"))
+(use-package flyspell
+  :ensure t)
+(dolist (hook '(python-mode-hook markdown-mode-hook))
+     (add-hook hook (lambda () (flyspell-mode 1))))
 
-;(display-line-numbers-mode)
+(use-package hl-todo
+  :ensure t)
+
+(setq hl-todo-keyword-faces
+      '(("TODO"   . "#FF0000")
+	("FIXME"  . "#FF0000")
+	("DEBUG"  . "#A020F0")
+	("GOTCHA" . "#FF4500")
+	("STUB"   . "#1E90FF")))
+(define-key hl-todo-mode-map (kbd "C-c p") 'hl-todo-previous)
+(define-key hl-todo-mode-map (kbd "C-c n") 'hl-todo-next)
+(define-key hl-todo-mode-map (kbd "C-c o") 'hl-todo-occur)
+(define-key hl-todo-mode-map (kbd "C-c i") 'hl-todo-insert)
+
+(use-package magit
+  :ensure t)
+
+;  :init
+;  (message "Loading Magit!")
+;  :config
+;  (message "Loaded Magit!")
+;  :bind (("C-x g" . magit-status)
+;         ("C-x C-g" . magit-status)))
+
+
+;for emacs 27 >
+;(add-hook 'prog-mode-hook #'display-fill-column-indicator-mode)
+
 (global-display-line-numbers-mode)
 (setq display-line-numbers-type 'relative)
+(add-hook 'term-mode-hook (lambda () (display-line-numbers-mode -1)))
 
+(setq backup-directory-alist `(("." . "~/.saves")))
 (setq custom-file "~/.emacs.d/custom.el")
+
+;;; init.el ends here
