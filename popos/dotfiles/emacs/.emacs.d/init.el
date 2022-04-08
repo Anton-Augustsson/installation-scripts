@@ -83,7 +83,7 @@
 
 (use-package flyspell
   :ensure t)
-(dolist (hook '(python-mode-hook markdown-mode-hook))
+(dolist (hook '(python-mode-hook markdown-mode-hook git-commit-setup-hook org-mode-hook))
      (add-hook hook (lambda () (flyspell-mode 1))))
 
 (use-package hl-todo
@@ -117,6 +117,32 @@
 (global-display-line-numbers-mode)
 (setq display-line-numbers-type 'relative)
 (add-hook 'term-mode-hook (lambda () (display-line-numbers-mode -1)))
+
+(add-hook 'org-mode-hook 'visual-line-mode)
+(use-package org-bullets
+  :ensure t)
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+
+
+;; On start up
+;https://emacs.stackexchange.com/questions/19610/how-to-start-term-in-a-separate-window-at-launch
+(defun launch-term ()
+  "Split window and launch term."
+  (interactive)
+  (split-window-right)
+  (other-window 1)
+  (term "/bin/zsh"))
+;(other-window 1))
+
+;(define-key hl-todo-mode-map (kbd "C-c i") 'hl-todo-insert)
+(global-set-key (kbd "C-c t") (lambda () (interactive) (launch-term)))
+;(funcall (key-binding (kbd "C-c t")))
+
+;; C-c C-v for copy and past
+(cua-mode t)
+(setq cua-auto-tabify-rectangles nil) ;; Don't tabify after rectangle commands
+(transient-mark-mode 1) ;; No region when it is not highlighted
+(setq cua-keep-region-after-copy t) ;; Standard Windows behaviour
 
 (setq backup-directory-alist `(("." . "~/.saves")))
 (setq custom-file "~/.emacs.d/custom.el")
