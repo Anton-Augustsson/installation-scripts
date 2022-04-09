@@ -59,7 +59,8 @@
   (load-file (expand-file-name file user-init-dir)))
 
 (load-user-file "theme.el")
-
+(load-user-file "relative-line-numbers.el")
+(load-user-file "launch-term.el")
 
 
 ;;; Dashboard
@@ -119,21 +120,12 @@
 ;(add-hook 'prog-mode-hook #'display-fill-column-indicator-mode) ;for emacs 27 >
 
 ;; Line numbers
-(defun set-relative-line-numbers ()
-  "Vim like line numbers where the next line is one and previous is also one."
-  (defvar global-display-line-numbers-mode)
-  (global-display-line-numbers-mode)
-  (defvar display-line-numbers-type)
-  (setq display-line-numbers-type 'relative)
-  (add-hook 'term-mode-hook (lambda () (display-line-numbers-mode -1))))
-
 (set-relative-line-numbers)
 
 
 ;;; Editing
 
 ;; Evil mode installation and config
-;(defvar evil-want-keybinding) ; defining as gloable variable
 (use-package evil
   :init (setq evil-want-keybinding nil) ; is needed for evil-collention
   :ensure t
@@ -168,7 +160,7 @@
 (use-package flyspell
   :ensure t
   :config
-  (dolist (hook '(python-mode-hook markdown-mode-hook git-commit-setup-hook org-mode-hook))
+  (dolist (hook '(python-mode-hook markdown-mode-hook git-commit-setup-hook org-mode-hook emacs-lisp-mode-hook))
      (add-hook hook (lambda () (flyspell-mode 1)))))
 
 ;; Version control
@@ -196,15 +188,7 @@
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 
-;;; Short cuts
-
-;https://emacs.stackexchange.com/questions/19610/how-to-start-term-in-a-separate-window-at-launch
-(defun launch-term ()
-  "Split window and launch term."
-  (interactive)
-  (split-window-right)
-  (other-window 1)
-  (term "/bin/zsh"))
+;;; Short cuts and other keybindings
 
 (global-set-key (kbd "C-c t") (lambda () (interactive) (launch-term)))
 
