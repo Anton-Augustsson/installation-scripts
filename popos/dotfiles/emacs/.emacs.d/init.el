@@ -114,7 +114,8 @@
   (define-key hl-todo-mode-map (kbd "C-c p") 'hl-todo-previous)
   (define-key hl-todo-mode-map (kbd "C-c n") 'hl-todo-next)
   (define-key hl-todo-mode-map (kbd "C-c o") 'hl-todo-occur)
-  (define-key hl-todo-mode-map (kbd "C-c i") 'hl-todo-insert))
+  (define-key hl-todo-mode-map (kbd "C-c i") 'hl-todo-insert)
+  (global-hl-todo-mode))
 
 ;; Max lenght vertical line
 ;(add-hook 'prog-mode-hook #'display-fill-column-indicator-mode) ;for emacs 27 >
@@ -144,11 +145,33 @@
   :custom (evil-collection-setup-minibuffer t)
   :init (evil-collection-init))
 
-;; Auto complition
+;; Auto completion
 (use-package company
   :ensure t
   :config
   (add-hook 'after-init-hook 'global-company-mode))
+
+(use-package pos-tip
+  :ensure t)
+
+(use-package company-quickhelp
+  :ensure t
+  :config (company-quickhelp-mode))
+
+(use-package company-jedi
+  :ensure t)
+
+(defun my/python-mode-hook ()
+  (add-to-list 'company-backends 'company-jedi))
+
+(add-hook 'python-mode-hook 'my/python-mode-hook)
+;M-x jedi:install-server
+(eval-after-load 'company
+  '(define-key company-active-map (kbd "C-c h") #'company-quickhelp-manual-begin))
+
+;; File manager
+(use-package ranger
+  :ensure t)
 
 ;; Linting
 (use-package flycheck
@@ -167,6 +190,8 @@
 (use-package magit
   :ensure t)
 
+;; Show hide code block
+(add-hook 'python-mode-hook 'hs-minor-mode)
 
 ;;; Languages
 
@@ -192,6 +217,7 @@
 
 (global-set-key (kbd "C-c t") (lambda () (interactive) (launch-term)))
 
+(define-key evil-normal-state-map (kbd "z s") 'hs-hide-level)
 
 ;;; File alist
 
