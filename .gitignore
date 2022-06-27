@@ -1,3 +1,8 @@
-/popos/dotfiles/emacs/.emacs.d/auto-save-list/
-/popos/dotfiles/emacs/.emacs.d/transient/
+*/.emacs.d/auto-save-list/
+*/.emacs.d/transient/
+*/.emacs.d/elpa
+*/.emacs.d/transient
+*/.emacs.d/recent
 /.README.md.~undo-tree~
+*.~undo~tree~
+*.eld
