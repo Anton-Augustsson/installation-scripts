@@ -105,12 +105,16 @@ zoom() {
 
 # Keyboad backlight
 backlighting() {
-    sudo aptitude brightnessctl
+    sudo dnf install brightnessctl
     # make sure script is in place
     # allow user to allow it
-    # key binding /home/anton/Programs/setBacklight.sh
+    # example key binding /home/anton/Programs/setBacklight.sh
 }
 
+rclone() {
+    sudo dnf install rclone inotifywait
+    
+}
 # Installation function
 install() {
     vscode 
