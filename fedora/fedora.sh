@@ -1,6 +1,5 @@
-#!/usr/bin/env bash
-
-DOTFILES=https://github.com/Anton-Augustsson/dotfiles.git
+#! /bin/bash
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 # Write a message as a argument
 ## $1 - The statment or question what should be desplayed before [Y/n] 
@@ -27,13 +26,17 @@ prompt() {
     done
 }
 
+stowConfigure() {
+    stow -d $SCRIPT_DIR/dotfiles -t $HOME $1
+}
+
 # Welcome screen
 welcome() {
     echo '
     Fedora installation script
 
     '
-    prompt "Do you wish to preside?" $(echo "prosiding") $(exit 0)
+    #prompt "Do you wish to preside?" $(echo "prosiding") $(exit 0)
 }
 
 # Set the git email and user name. Also creates a ssh key and uploweds it to gihub
@@ -56,13 +59,15 @@ gitConf() {
 # These are general dependiecies for many diffrent functions, needs to be run after "welcome()"
 dependencies() {
     sudo dnf upgrade
+    sudo dnf install stow
 }
 
 # ZSH, vim and ranger
 terminalApplication() {
-    #sudo aptitude install vim ranger zsh
+    sudo dnf install zsh vim ranger
+
     # Enable zsh
-    #chsh -s $(which zsh)
+    sudo lchsh $USER
 
     # https://linuxhint.com/configure_vim_vimrc/
     # set clipboard=unnamedplus
@@ -71,13 +76,20 @@ terminalApplication() {
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
     # Oh-my-ZSH plugin autosuggestions
-    git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+    zsh -c 'git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions'
     # Oh-my-ZSH plugin syntax highlighting
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+    zsh -c 'git clone https://github.com/zsh-users/zsh-syntax-highlighting ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting'
     # Oh-my-ZSH plugin vi mode
-    git clone https://github.com/jeffreytse/zsh-vi-mode.git $ZSH_CUSTOM/plugins/zsh-vi-mode
+    zsh -c 'git clone https://github.com/jeffreytse/zsh-vi-mode ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-vi-mode'
 
     # Make sure .zshrc is updated
+    rm $HOME/.zshrc
+    stowConfigure zsh
+}
+
+emacs() {
+    sudo dnf install emacs
+    stowConfigure emacs
 }
 
 vscode() {
@@ -113,13 +125,69 @@ backlighting() {
 
 rclone() {
     sudo dnf install rclone inotifywait
-    
+    #https://rclone.org/drive/   
 }
+
 # Installation function
-install() {
+setupAll() {
     vscode 
     terminalApplication
 }
 
-# Acctual install
-install
+menu() {
+    welcome
+    while true
+    do
+	echo "1) Install dependencies"
+	echo "2) Setup git"
+	echo "3) Setup ZSH"
+	echo "4) Setup Emacs"
+	echo "5) Setup VSCode"
+	echo "6) Setup zoom"
+	echo "7) Setup rclone"
+	echo "8) Setup keybord backlighting"
+	echo "a) Setup all"
+	echo "q) Exit"
+        read -r -p "What option do you choose? " input
+
+        case $input in
+	    [1])
+		dependencies
+                ;;
+	    [2])
+		gitConf
+                ;;
+	    [3])
+		#terminalApplication
+		stowConfigure zsh
+                ;;
+	    [4])
+		emacs
+                ;;
+	    [5])
+		vscode
+                ;;
+	    [6])
+		zoom
+                ;;
+	    [7])
+		rclone
+                ;;
+	    [8])
+		backlighting
+                ;;
+	    [aA])
+		setupAll
+                ;;
+            [qQ])
+                break
+                ;;
+            *)
+		echo "Invalid input..."
+		;;
+        esac
+    done
+}
+
+echo $SCRIPT_DIR
+menu

@@ -6,3 +6,10 @@
 /.README.md.~undo-tree~
 *.~undo~tree~
 *.eld
+dotfiles/emacs/.emacs.d/auto-save-list/
+fedora/dotfiles/emacs/.emacs.d/.custom.el.~undo-tree~
+fedora/dotfiles/emacs/.emacs.d/.init.el.~undo-tree~
+fedora/dotfiles/emacs/.emacs.d/auto-save-list/
+fedora/dotfiles/emacs/.emacs.d/custom.el
+fedora/dotfiles/emacs/.emacs.d/elpa/
+fedora/dotfiles/emacs/.emacs.d/recentf
