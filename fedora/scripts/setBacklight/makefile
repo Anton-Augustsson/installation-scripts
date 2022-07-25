@@ -1,10 +1,11 @@
 all:
 	mkdir -p ~/Programs
 	cp setBacklight.sh ~/Programs/setBacklight.sh
-	sudo apt install brightnessctl
+	sudo dnf install brightnessctl
 	chmod u+x ~/Programs/setBacklight.sh
 	# sudo visudo
 	# anton ALL = NOPASSWD: /usr/bin/brightnessctl
+	# custom keyboard shortcut ex: Ctrl+Alt+b
 clean: 
 	rm ~/Programs/setBacklight.sh
-	sudo apt purge brightnessctl 
+	sudo remove purge brightnessctl 
