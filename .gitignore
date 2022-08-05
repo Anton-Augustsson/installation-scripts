@@ -13,3 +13,7 @@ fedora/dotfiles/emacs/.emacs.d/auto-save-list/
 fedora/dotfiles/emacs/.emacs.d/custom.el
 fedora/dotfiles/emacs/.emacs.d/elpa/
 fedora/dotfiles/emacs/.emacs.d/recentf
+fedora/dotfiles/emacs/.emacs.d/eln-cache
+fedora/dotfiles/emacs/.emacs.d/bookmarks
+fedora/dotfiles/emacs/.emacs.d/eshell/history
+fedora/dotfiles/emacs/.emacs.d/eshell/lastdir

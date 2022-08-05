@@ -118,14 +118,34 @@ zoom() {
 # Keyboad backlight
 backlighting() {
     sudo dnf install brightnessctl
+    make -C scripts/setBacklight/
     # make sure script is in place
     # allow user to allow it
     # example key binding /home/anton/Programs/setBacklight.sh
 }
 
 rclone() {
-    sudo dnf install rclone inotifywait
+    sudo dnf install rclone
     #https://rclone.org/drive/   
+    cp scripts/sync_drive.sh ~/Programs/sync_drive.sh
+}
+
+rclone() {
+    sudo dnf install rclone
+    #https://rclone.org/drive/   
+    cp scripts/sync_drive.sh ~/Programs/sync_drive.sh
+    echo "@reboot ~/Programs/sync_drive.sh" | crontab -
+}
+
+flutter() {
+    # TODO
+    sudo snap install flutter --classic
+    sudo snap install android-studio --classic
+    #export PATH="$PATH:[PATH_OF_FLUTTER_GIT_DIRECTORY]/bin"
+    #source $HOME/.<rc file>
+    #https://docs.flutter.dev/get-started/install/linux
+    #flutter doctor --android-licenses
+    sudo dnf install clang cmake ninja-build pkg-config
 }
 
 # Installation function
@@ -146,6 +166,7 @@ menu() {
 	echo "6) Setup zoom"
 	echo "7) Setup rclone"
 	echo "8) Setup keybord backlighting"
+	echo "9) Setup Flutter"
 	echo "a) Setup all"
 	echo "q) Exit"
         read -r -p "What option do you choose? " input
@@ -158,8 +179,7 @@ menu() {
 		gitConf
                 ;;
 	    [3])
-		#terminalApplication
-		stowConfigure zsh
+		terminalApplication
                 ;;
 	    [4])
 		emacs
@@ -175,6 +195,9 @@ menu() {
                 ;;
 	    [8])
 		backlighting
+                ;;
+	    [9])
+		flutter
                 ;;
 	    [aA])
 		setupAll
