@@ -111,4 +111,4 @@ alias q="exit"
 
 
 #PATH="/snap/bin:$PATH"
-export PATH="$PATH:/home/anau/snap/flutter/common/flutter/bin"
+export PATH="$PATH:$HOME/snap/flutter/common/flutter/bin"

@@ -1,5 +1,5 @@
 #! /bin/bash
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 # Write a message as a argument
 ## $1 - The statment or question what should be desplayed before [Y/n] 
@@ -27,7 +27,7 @@ prompt() {
 }
 
 stowConfigure() {
-    stow -d $SCRIPT_DIR/dotfiles -t $HOME $1
+    stow -d $script_dir/dotfiles -t $HOME $1
 }
 
 # Welcome screen
@@ -60,6 +60,9 @@ gitConf() {
 dependencies() {
     sudo dnf upgrade
     sudo dnf install stow
+    sudo dnf install snapd
+    sudo ln -s /var/lib/snapd/snap /snap
+    mkdir $HOME/Programs/
 }
 
 # ZSH, vim and ranger
@@ -124,11 +127,6 @@ backlighting() {
     # example key binding /home/anton/Programs/setBacklight.sh
 }
 
-rclone() {
-    sudo dnf install rclone
-    #https://rclone.org/drive/   
-    cp scripts/sync_drive.sh ~/Programs/sync_drive.sh
-}
 
 rclone() {
     sudo dnf install rclone
@@ -138,14 +136,27 @@ rclone() {
 }
 
 flutter() {
-    # TODO
+    #https://docs.flutter.dev/get-started/install/linux
     sudo snap install flutter --classic
     sudo snap install android-studio --classic
-    #export PATH="$PATH:[PATH_OF_FLUTTER_GIT_DIRECTORY]/bin"
-    #source $HOME/.<rc file>
-    #https://docs.flutter.dev/get-started/install/linux
-    #flutter doctor --android-licenses
+    echo 'export PATH="$PATH:$HOME/snap/flutter/common/flutter/bin"' >> $HOME/.zshrc
+    source $HOME/.zshrc
+    flutter doctor --android-licenses
     sudo dnf install clang cmake ninja-build pkg-config
+}
+
+cheat() {
+    sudo snap install cheat 
+    cheat_path=$HOME/snap/cheat/common/.config/cheat/cheatsheets/
+    mkdir $HOME/snap/cheat/common/.config/cheat/cheatsheets/
+    mkdir $HOME/snap/cheat/common/.config/cheat/cheatsheets/community/
+    mkdir $HOME/snap/cheat/common/.config/cheat/cheatsheets/personal/
+    git clone git@github.com:Anton-Augustsson/.cheat.git $HOME/snap/cheat/common/.config/cheat/cheatsheets/personal/
+}
+
+tts() {
+    git clone git@github.com:Anton-Augustsson/tts.git $HOME/Programs/tts/
+    make -C $HOME/Programs/tts/
 }
 
 # Installation function
@@ -212,5 +223,5 @@ menu() {
     done
 }
 
-echo $SCRIPT_DIR
+echo $script_dir
 menu
