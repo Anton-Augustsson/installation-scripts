@@ -129,9 +129,10 @@ backlighting() {
 
 
 rclone() {
-    sudo dnf install rclone
+    sudo dnf install rclone inotifywait
     #https://rclone.org/drive/   
     cp scripts/sync_drive.sh ~/Programs/sync_drive.sh
+    chmod +x ~/Programs/sync_drive.sh
     echo "@reboot ~/Programs/sync_drive.sh" | crontab -
 }
 

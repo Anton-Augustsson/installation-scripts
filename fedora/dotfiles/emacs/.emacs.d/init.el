@@ -122,6 +122,13 @@
 ;; Line numbers
 (set-relative-line-numbers)
 
+;; Centred window
+(use-package centered-window
+  :ensure t
+  :config (centered-window-mode t))
+
+;; Font size
+(set-face-attribute 'default nil :height 120)
 
 ;;; Editing
 
