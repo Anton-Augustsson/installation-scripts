@@ -172,6 +172,7 @@
 
 (add-hook 'python-mode-hook 'my/python-mode-hook)
 ;M-x jedi:install-server
+;sudo pip install virtualenv
 (eval-after-load 'company
   '(define-key company-active-map (kbd "C-c h") #'company-quickhelp-manual-begin))
 
@@ -186,11 +187,21 @@
   (global-flycheck-mode))
 
 ;; Spelling
-(use-package flyspell
-  :ensure t
-  :config
-  (dolist (hook '(python-mode-hook markdown-mode-hook git-commit-setup-hook org-mode-hook emacs-lisp-mode-hook))
-     (add-hook hook (lambda () (flyspell-mode 1)))))
+;(use-package flyspell
+;  :ensure t
+;  :config
+;  (dolist (hook '(python-mode-hook markdown-mode-hook git-commit-setup-hook org-mode-hook emacs-lisp-mode-hook))
+;     (add-hook hook (lambda () (flyspell-mode 1)))))
+
+;(setq langtool-language-tool-jar "/path/to/languagetool-commandline.jar")
+(use-package langtool
+  :ensure t)
+
+(setq langtool-language-tool-jar "/home/anau/Programs/LanguageTool-5.8/languagetool-commandline.jar")
+(require 'langtool)
+(setq langtool-default-language "en-GB")
+;(global-set-key "\C-x4w" 'langtool-check)
+(add-hook 'after-save-hook #'langtool-check)
 
 ;; Version control
 (use-package magit
