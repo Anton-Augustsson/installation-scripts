@@ -99,14 +99,17 @@ vscode() {
     #sudo aptitude install code openscad texlive-latex-extra
 
     # VS_Code extensions 
-    code --install-extension Antyos.openscad
-    code --install-extension ritwickdey.LiveServer
-    code --install-extension Gimly81.matlab
     code --install-extension vscodevim.vim
-    code --install-extension ArtisanByteCrafter.poptheme
-    code --install-extension James-Yu.latex-workshop
-    code --install-extension znck.grammarly
-    code --install-extension aaron-bond.better-comments
+    code --install-extension tomoki1207.pdf
+
+    #code --install-extension Antyos.openscad
+    #code --install-extension ritwickdey.LiveServer
+    #code --install-extension Gimly81.matlab
+    #code --install-extension vscodevim.vim
+    #code --install-extension ArtisanByteCrafter.poptheme
+    #code --install-extension James-Yu.latex-workshop
+    #code --install-extension znck.grammarly
+    #code --install-extension aaron-bond.better-comments
 
     # https://github.com/VSCodeVim/Vim
     # User/settings

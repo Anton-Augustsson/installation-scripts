@@ -15,7 +15,8 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="frontcube"
+#ZSH_THEME="frontcube"
+ZSH_THEME="bureau"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -90,7 +91,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
-export EDITOR='vim'
+export EDITOR='nvim'
 # else
 #   export EDITOR='mvim'
 # fi
@@ -112,3 +113,27 @@ alias q="exit"
 
 #PATH="/snap/bin:$PATH"
 export PATH="$PATH:$HOME/snap/flutter/common/flutter/bin"
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
+
+# JAVA
+export JSON_JAVA=$HOME/.local/share/java-library/JSON
+export CLASSPATH=$CLASSPATH:$JSON_JAVA/json-simple-1.1.1.jar:.
+
+# Virtual box
+export KERN_DIR=/usr/src/kernels/'uname -r'
+
+# lf
+LFCD="$HOME/.config/lf/lfcd.sh" 
+if [ -f "$LFCD" ]; then
+    source "$LFCD"
+fi
+
+# Raspbarri pi pico
+export PICO_SDK_PATH=$HOME/pico/pico-sdk
+
+# Server storage
+# TODO check if the host is avalible before trying to mounting it
+#sshfs anau@192.168.1.198:$HOME/pidrive $HOME/Pidrive
