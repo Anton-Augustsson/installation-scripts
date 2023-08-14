@@ -1,0 +1,57 @@
+---
+- name: Setup Fedora
+  hosts: fedora
+  become: true
+
+  tasks:
+    - name: Terminal applications
+      shell: 
+        echo "TODO: terminal application" 
+    - name: Cheat
+      shell: 
+        echo "TODO: cheat" 
+    - name: AATTS
+      shell: 
+        echo "TODO: cheat" 
+    - name: Rclone
+      shell: 
+        echo "TODO: rclone" 
+    - name: Snap
+      shell: 
+        echo "TODO: snap" 
+    - name: Install vscode
+      shell: 
+        echo "TODO: vscode" 
+        #sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc &&
+        #cat <<EOF | sudo tee /etc/yum.repos.d/vscode.repo &&
+        #dnf:
+        #update_cache: yes
+        #dnf:
+        #name: code
+        #state: present
+    - name: Install vscode extesnion
+      shell: 
+        echo "TODO: vscode extesnion" 
+          #code --install-extension vscodevim.vim &&
+          #code --install-extension ritwickdey.LiveServer &&
+          ##code --install-extension VisualStudioExptTeam.vscodeintellicode &&
+          #code --install-extension SonarSource.sonarlint-vscode &&
+          #code --install-extension wayou.vscode-todo-highlight &&
+          #code --install-extension ms-vscode.vscode-serial-monitor &&
+          #code --install-extension ms-vscode.makefile-tools &&
+          #code --install-extension twxs.cmake &&
+          #code --install-extension streetsidesoftware.code-spell-checker &&
+          #code --install-extension tomoki1207.pdf &&
+          #code --install-extension ms-vscode.cpptools &&
+          #code --install-extension ms-python.python &&
+          #code --install-extension Angular.ng-template &&
+          #code --install-extension Antyos.openscad &&
+    - name: Zoom
+      shell: 
+        echo "TODO: zoom" 
+      #wget https://zoom.us/client/latest/zoom_x86_64.rpm 
+      #sudo dnf localinstall zoom_x86_64.rpm
+    - name: Config
+      shell: 
+        echo "TODO: config" 
+
