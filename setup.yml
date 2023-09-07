@@ -19,9 +19,15 @@
         name: snapd
         state: present
 
+    - name: Check if file exists
+      stat:
+        path: /snap/snap
+      register: file_stat
+
     - name: Make snap program accessible
       become: true
-      command: ln -s /var/lib/snapd/snap /snap
+      shell: ln -s /var/lib/snapd/snap /snap
+      when: not file_stat.stat.exists
 
     - name: Cheat
       become: true
@@ -29,8 +35,24 @@
         name: cheat
         state: present
 
-    - name: Cheat personal repo
-      command: mkdir cheatsheets/personal
+    - name: Check cheatsheets dir exists
+      stat:
+        path: ~/snap/cheat/common/.config/cheat/cheatsheets
+      register: cheatsheets_stat
+
+    - name: Cheat cheatsheets dir
+      become: true
+      command: mkdir ~/snap/cheat/common/ ~/snap/cheat/common/.config/ ~/snap/cheat/common/.config/cheat/ ~/snap/cheat/common/.config/cheat/cheatsheets
+      when: not cheatsheets_stat.stat.exists
+
+    - name: Check personal cheatsheets dir exists
+      stat:
+        path: ~/snap/cheat/common/.config/cheat/cheatsheets/personal
+      register: cheatsheets_personal_stat
+
+    - name: Cheat clone personal repo
+      command: git clone https://github.com/Anton-Augustsson/.cheat.git ~/snap/cheat/common/.config/cheat/cheatsheets/personal/
+      when: not cheatsheets_personal_stat.stat.exists
 
     - name: AATTS
       shell: echo "TODO cheat" 
