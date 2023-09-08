@@ -35,15 +35,50 @@
         name: cheat
         state: present
 
-    - name: Check cheatsheets dir exists
+    - name: Check snap dir exists
+      stat:
+        path: ~/snap/
+      register: snap_stat
+
+    - name: Create snap dir 
+      command: mkdir ~/snap
+      when: not snap_stat.stat.exists
+
+    - name: Check cheat dir exists
+      stat:
+        path: ~/snap/cheat/
+      register: cheat_stat
+
+    - name: Create Cheat dir
+      command: mkdir ~/snap/cheat
+      when: not cheat_stat.stat.exists
+
+    - name: Check cheat common dir exists
+      stat:
+        path: ~/snap/cheat/common
+      register: common_stat
+
+    - name: Create cheat common dir
+      command: mkdir ~/snap/cheat/common/
+      when: not common_stat.stat.exists
+
+    - name: Check cheat cheatsheets dir exists
       stat:
         path: ~/snap/cheat/common/.config/cheat/cheatsheets
       register: cheatsheets_stat
 
-    - name: Cheat cheatsheets dir
-      become: true
-      command: mkdir ~/snap/cheat/common/ ~/snap/cheat/common/.config/ ~/snap/cheat/common/.config/cheat/ ~/snap/cheat/common/.config/cheat/cheatsheets
+    - name: Create Cheat cheatsheets dir
+      command: mkdir ~/snap/cheat/common/.config/ ~/snap/cheat/common/.config/cheat/ ~/snap/cheat/common/.config/cheat/cheatsheets ~/snap/cheat/common/.config/cheat/cheatsheets/community
       when: not cheatsheets_stat.stat.exists
+
+    - name: Check cheat cheatsheets config 
+      stat:
+        path: ~/snap/cheat/common/.config/cheat/conf.yml
+      register: cheatsheets_conf_stat
+
+    - name: Cheat cheatsheets config
+      command: cp fedora/dotfiles/cheat/snap/cheat/common/.config/cheat/conf.yml ~/snap/cheat/common/.config/cheat/conf.yml
+      when: not cheatsheets_conf_stat.stat.exists
 
     - name: Check personal cheatsheets dir exists
       stat:
