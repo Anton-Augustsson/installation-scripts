@@ -134,6 +134,10 @@ fi
 # Raspbarri pi pico
 export PICO_SDK_PATH=$HOME/pico/pico-sdk
 
+# Backup work and self-improvment
+alias syncw="rclone sync /home/anau/Documents/Drive/Work Drive:Work/Work-Backup"
+alias syncs="rclone sync /home/anau/Documents/Drive/Self-Improvement Drive:Self-Improvement/Self-Improvement-Backup"
+
 # Server storage
 # TODO check if the host is avalible before trying to mounting it
 #sshfs anau@192.168.1.198:$HOME/pidrive $HOME/Pidrive
