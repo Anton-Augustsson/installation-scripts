@@ -19,7 +19,7 @@ commands=(
     "Setup GIMP"
     "Setup Cura (flatpak)"
     "Setup AATTS"
-    "Run all commands"
+    "Setup Jellyfin"
     "Exit"
 )
 
@@ -236,6 +236,16 @@ setup_tts() {
     make -C $HOME/Programs/tts/
 }
 
+setup_jellyfin() {
+    mkdir -p $HOME/jellyfin/
+    mkdir -p $HOME/jellyfin/config
+    mkdir -p $HOME/jellyfin/cache
+    mkdir -p $HOME/jellyfin/media
+
+    kubectl apply -f server-deployment.yaml    
+}
+
+
 ##############################################################################
 ##########################  To run the scripts  ##############################
 ##############################################################################
@@ -319,18 +329,7 @@ execute_commands() {
                 ;;
             13 )
                 echo "${commands[$index - 1]}"
-                setup_zsh
-                setup_flatpak
-                setup_latex
-                setup_openscad
-                setup_kicad
-                setup_vscode
-                setup_virtualbox
-                setup_docker
-                setup_kind
-                setup_gimp
-                setup_cura
-                setup_tts
+                setup_jellyfin
                 ;;
             14 )
                 echo "Exiting..."
