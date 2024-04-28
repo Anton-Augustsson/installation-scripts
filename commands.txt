@@ -1,7 +1,11 @@
+sudo mkdir -p /srv/gitlab
+export GITLAB_HOME=/srv/gitlab
+~/.zshrc
+
 sudo docker run --detach \
   --hostname kind-server \
   --env GITLAB_OMNIBUS_CONFIG="external_url 'http://kind-server.com'" \
-  --publish 443:443 --publish 80:80 --publish 22:22 \
+  --publish 443:443 --publish 80:80 --publish 2224:2224 \
   --name gitlab \
   --restart always \
   --volume $GITLAB_HOME/config:/etc/gitlab \

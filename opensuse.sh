@@ -236,13 +236,41 @@ setup_tts() {
     make -C $HOME/Programs/tts/
 }
 
+setup_nfs() {
+    sudo zypper install nfs-kernel-server
+
+    sudo systemctl enable rpcbind.service
+    sudo systemctl start rpcbind.service
+    sudo systemctl enable nfsserver.service
+    sudo systemctl start nfsserver.service
+
+    sudo echo "/media/movies	*(rw,sync,no_root_squash,no_subtree_check)" >> /etc/exports
+    sudo exportfs -a
+
+    sudo firewall-cmd --zone=public --add-port=2049/tcp --permanent
+    sudo firewall-cmd --reload
+}
+
+setup_gitlab() {
+    sudo mkdir -p /srv/gitlab
+
+    kubectl apply -f server-gitlab-deployment.yaml    
+
+    sudo firewall-cmd --zone=public --add-port=443/tcp --permanent
+    sudo firewall-cmd --zone=public --add-port=80/tcp --permanent
+    sudo firewall-cmd --zone=public --add-port=2224/tcp --permanent
+    sudo firewall-cmd --reload
+}
+
 setup_jellyfin() {
-    mkdir -p $HOME/jellyfin/
-    mkdir -p $HOME/jellyfin/config
-    mkdir -p $HOME/jellyfin/cache
-    mkdir -p $HOME/jellyfin/media
+    #new_port=2424
+    #sudo sed -i "s/^Port .*/Port $new_port/" /etc/ssh/sshd_config
+	#Docker create cluster
 
     kubectl apply -f server-deployment.yaml    
+
+    sudo firewall-cmd --zone=public --add-port=8181/tcp --permanent
+    sudo firewall-cmd --reload
 }
 
 
@@ -329,6 +357,8 @@ execute_commands() {
                 ;;
             13 )
                 echo "${commands[$index - 1]}"
+                # TODO: have nfs as a seperate command
+                setup_nfs
                 setup_jellyfin
                 ;;
             14 )

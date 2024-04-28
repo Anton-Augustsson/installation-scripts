@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitlab-deployment
+spec:
+  replicas: 1 # Adjust replica count as needed
+  selector:
+    matchLabels:
+      app: gitlab
+  template:
+    metadata:
+      labels:
+        app: gitlab
+    spec:
+      hostname: 192.168.1.122
+      containers:
+      - name: gitlab
+        image: gitlab/gitlab-ce:nightly
+        ports:
+        - containerPort: 443
+        - containerPort: 80
+        - containerPort: 2224
+        env:
+        - name: GITLAB_OMNIBUS_CONFIG
+          value: "external_url 'http://kind-test-server.com'"
+        volumeMounts:
+        - mountPath: /etc/gitlab
+          name: config-volume
+        - mountPath: /var/log/gitlab
+          name: logs-volume
+        - mountPath: /var/opt/gitlab
+          name: data-volume
+        resources:
+          requests:
+            memory: "256Mi"
+          limits:
+            memory: "512Mi"
+      volumes:
+      - name: config-volume
+        hostPath: 
+          path: /srv/gitlab/config
+      - name: logs-volume
+        hostPath:
+          path: /srv/gitlab/logs
+      - name: data-volume
+        hostPath:
+          path: /srv/gitlab/data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: gitlab-service
+spec:
+  selector:
+    app: gitlab
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 80
+  - name: https
+    protocol: TCP
+    port: 443
+    targetPort: 443
+  - name: ssh
+    protocol: TCP
+    port: 2224
+    targetPort: 2224
+  type: NodePort # or LoadBalancer, depending on your requirements

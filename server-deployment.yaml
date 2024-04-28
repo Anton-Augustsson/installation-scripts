@@ -18,22 +18,25 @@ spec:
         ports:
         - containerPort: 8096
         volumeMounts:
-        - name: config-volume
-          mountPath: /config
-        - name: cache-volume
-          mountPath: /cache
-        - name: media-volume
-          mountPath: /media
+        - mountPath: /config
+          name: config-volume
+        - mountPath: /cache
+          name: cache-volume
+        - mountPath: /movies
+          name: media-volume
       volumes:
       - name: config-volume
         hostPath: 
-          path: /home/anau/jellyfin/config
+          path: /media/jellyfin/config
+          type: DirectoryOrCreate
       - name: cache-volume
         hostPath:
-          path: /home/anau/jellyfin/cache
+          path: /media/jellyfin/cache
+          type: DirectoryOrCreate
       - name: media-volume
-        hostPath:
-          path: /home/anau/jellyfin/media
+        nfs:
+          server: kind-server
+          path: /media/movies
 ---
 apiVersion: v1
 kind: Service
