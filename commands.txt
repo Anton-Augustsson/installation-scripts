@@ -1,0 +1,29 @@
+sudo mkdir -p /srv/gitlab
+export GITLAB_HOME=/srv/gitlab
+~/.zshrc
+
+sudo docker run --detach \
+  --hostname kind-server \
+  --env GITLAB_OMNIBUS_CONFIG="external_url 'http://kind-server.com'" \
+  --publish 443:443 --publish 80:80 --publish 2224:2224 \
+  --name gitlab \
+  --restart always \
+  --volume $GITLAB_HOME/config:/etc/gitlab \
+  --volume $GITLAB_HOME/logs:/var/log/gitlab \
+  --volume $GITLAB_HOME/data:/var/opt/gitlab \
+  --shm-size 256m \
+  gitlab/gitlab-ce:nightly
+
+
+  version: '3.5'
+  services:
+    jellyfin:
+      images: jellyfin/jellyfin
+      container_name: jellyfin
+      user: 1000:1000
+      network_mode: 'host'
+      volumes:
+        - /home/anau/jellyfin/config:/config
+        - /home/anau/jellyfin/cache:/cache
+        - /home/anau/jellyfin/media:/media
+      restart: 'unless-stopped'
