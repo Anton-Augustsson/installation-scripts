@@ -12,7 +12,7 @@ spec:
       labels:
         app: gitlab
     spec:
-      hostname: 192.168.1.122
+      hostname: kind-server
       containers:
       - name: gitlab
         image: gitlab/gitlab-ce:nightly
@@ -22,7 +22,7 @@ spec:
         - containerPort: 2224
         env:
         - name: GITLAB_OMNIBUS_CONFIG
-          value: "external_url 'http://kind-test-server.com'"
+          value: "external_url 'http://kind-server'"
         volumeMounts:
         - mountPath: /etc/gitlab
           name: config-volume

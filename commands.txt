@@ -4,7 +4,7 @@ export GITLAB_HOME=/srv/gitlab
 
 sudo docker run --detach \
   --hostname kind-server \
-  --env GITLAB_OMNIBUS_CONFIG="external_url 'http://kind-server.com'" \
+  --env GITLAB_OMNIBUS_CONFIG="external_url 'http://kind-server'" \
   --publish 443:443 --publish 80:80 --publish 2224:2224 \
   --name gitlab \
   --restart always \
@@ -27,3 +27,22 @@ sudo docker run --detach \
         - /home/anau/jellyfin/cache:/cache
         - /home/anau/jellyfin/media:/media
       restart: 'unless-stopped'
+
+
+	  version: '3.5'
+services:
+  jellyfin:
+    image: jellyfin/jellyfin
+    container_name: jellyfin
+    user: uid:gid
+    network_mode: 'host'
+    volumes:
+      - /path/to/config:/config
+      - /path/to/cache:/cache
+      - type: bind
+        source: /path/to/media
+        target: /media
+      - type: bind
+        source: /path/to/media2
+        target: /media2
+        read_only: true
